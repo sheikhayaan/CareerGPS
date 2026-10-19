@@ -13,7 +13,7 @@ import {
 
 const ReactECharts = dynamic(() => import('echarts-for-react'), { ssr: false });
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8005/api';
 
 const rolesList = [
   // Tech & Engineering

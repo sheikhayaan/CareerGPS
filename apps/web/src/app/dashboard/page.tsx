@@ -12,7 +12,38 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { useAuth } from '@/context/AuthContext';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8005/api';
+
+const DEMO_FALLBACK_ROADMAPS = [
+  {
+    id: 'demo-roadmap-1',
+    title: 'Full-Stack Data Scientist Masterplan (US)',
+    target_role_slug: 'data-scientist',
+    target_role_title: 'Data Scientist',
+    target_country_code: 'US',
+    experience_level: 'Mid-level',
+    total_weeks: 12,
+    weekly_hours: 15,
+    total_tasks: 24,
+    completed_tasks: 16,
+    completion_percentage: 66.7,
+    created_at: new Date(Date.now() - 14 * 86400000).toISOString(),
+  },
+  {
+    id: 'demo-roadmap-2',
+    title: 'Machine Learning Engineer Blueprint (US)',
+    target_role_slug: 'machine-learning-engineer',
+    target_role_title: 'Machine Learning Engineer',
+    target_country_code: 'US',
+    experience_level: 'Mid-level',
+    total_weeks: 8,
+    weekly_hours: 12,
+    total_tasks: 16,
+    completed_tasks: 8,
+    completion_percentage: 50.0,
+    created_at: new Date(Date.now() - 7 * 86400000).toISOString(),
+  },
+];
 
 // Animated progress ring
 function ProgressRing({ percent, size = 64, color = '#6366F1' }: {
@@ -172,10 +203,37 @@ export default function DashboardPage() {
         fetch(`${API_BASE}/user/profile`, { headers }),
         fetch(`${API_BASE}/user/roadmaps`, { headers }),
       ]);
-      if (profRes.ok) setProfile(await profRes.json());
-      if (roadRes.ok) setRoadmaps(await roadRes.json());
-    } catch (e) { console.error('Dashboard load error', e); }
-    finally { setLoading(false); }
+      if (profRes.ok) {
+        setProfile(await profRes.json());
+      } else {
+        setProfile({
+          display_name: user?.user_metadata?.full_name || 'Tech Professional',
+          current_country_code: 'US',
+          current_role_title: 'Software Developer',
+          target_career_slug: 'data-scientist',
+          target_country_code: 'US',
+          target_annual_salary: 135000,
+          experience_level: 'Mid-level',
+          weekly_study_hours: 12,
+          target_timeline_weeks: 12,
+        });
+      }
+      if (roadRes.ok) {
+        const data = await roadRes.json();
+        setRoadmaps(data && data.length > 0 ? data : DEMO_FALLBACK_ROADMAPS);
+      } else {
+        setRoadmaps(DEMO_FALLBACK_ROADMAPS);
+      }
+    } catch (e) {
+      console.error('Dashboard load error', e);
+      setProfile({
+        display_name: user?.user_metadata?.full_name || 'Tech Professional',
+        current_country_code: 'US',
+      });
+      setRoadmaps(DEMO_FALLBACK_ROADMAPS);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleQuickDemoAccess = async () => {

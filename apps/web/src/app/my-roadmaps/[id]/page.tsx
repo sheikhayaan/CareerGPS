@@ -21,25 +21,73 @@ export default function RoadmapDetailPage() {
   const [loading, setLoading] = useState(true);
   const [expandedWeeks, setExpandedWeeks] = useState<{ [key: number]: boolean }>({ 1: true });
 
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8005/api';
 
   useEffect(() => {
-    if (!token) return;
     fetchRoadmap();
   }, [roadmapId, token]);
 
   const fetchRoadmap = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/user/roadmaps/${roadmapId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setRoadmap(data);
-      } else {
-        router.push('/dashboard');
+      if (token) {
+        const res = await fetch(`${API_BASE}/user/roadmaps/${roadmapId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setRoadmap(data);
+          setLoading(false);
+          return;
+        }
       }
+
+      // Demo fallback if roadmap is a demo roadmap or offline
+      setRoadmap({
+        id: roadmapId,
+        title: roadmapId.includes('2') ? 'Machine Learning Engineer Blueprint (US)' : 'Full-Stack Data Scientist Masterplan (US)',
+        target_role_slug: roadmapId.includes('2') ? 'machine-learning-engineer' : 'data-scientist',
+        target_role_title: roadmapId.includes('2') ? 'Machine Learning Engineer' : 'Data Scientist',
+        target_country_code: 'US',
+        experience_level: 'Mid-level',
+        total_weeks: roadmapId.includes('2') ? 8 : 12,
+        weekly_hours: roadmapId.includes('2') ? 12 : 15,
+        completion_percentage: 60.0,
+        completed_skills: ['python', 'numpy', 'pandas', 'sql'],
+        progress: [
+          { week_number: 1, task_identifier: 'w1_t0', task_title: 'NumPy array broadcasting drill', skill_slug: 'numpy', is_completed: true },
+          { week_number: 1, task_identifier: 'w1_t1', task_title: 'Vectorized exploratory data analysis benchmark', skill_slug: 'python', is_completed: true },
+          { week_number: 2, task_identifier: 'w2_t0', task_title: 'Multi-index aggregation pipeline', skill_slug: 'pandas', is_completed: true },
+          { week_number: 2, task_identifier: 'w2_t1', task_title: 'Complex window function SQL challenge', skill_slug: 'sql', is_completed: true },
+          { week_number: 3, task_identifier: 'w3_t0', task_title: 'A/B test power analysis calculation', skill_slug: 'statistics', is_completed: true },
+          { week_number: 3, task_identifier: 'w3_t1', task_title: 'Bootstrap confidence interval simulation', skill_slug: 'statistics', is_completed: false },
+        ],
+        roadmap_data: {
+          weekly_plan: [
+            {
+              week_number: 1,
+              title: 'Python Data Science Foundations & Vectorized Computing',
+              skills: ['python', 'numpy'],
+              focus: 'Master vectorized operations, memory layouts, and clean scientific Python scripting.',
+              practice_exercises: ['NumPy array broadcasting drill', 'Vectorized exploratory data analysis benchmark']
+            },
+            {
+              week_number: 2,
+              title: 'Data Wrangling with Pandas & Relational SQL',
+              skills: ['pandas', 'sql'],
+              focus: 'High-performance tabular manipulations, window functions, and multi-table analytical joins.',
+              practice_exercises: ['Multi-index aggregation pipeline', 'Complex window function SQL challenge']
+            },
+            {
+              week_number: 3,
+              title: 'Statistical Inference & Hypothesis Testing',
+              skills: ['statistics'],
+              focus: 'Parametric & non-parametric hypothesis tests, confidence interval bootstrapping, and statistical rigor.',
+              practice_exercises: ['A/B test power analysis calculation', 'Bootstrap confidence interval simulation']
+            }
+          ]
+        }
+      });
     } catch (err) {
       console.error(err);
     } finally {

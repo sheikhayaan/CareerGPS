@@ -13,7 +13,7 @@ export default function AdminAnalyticsDashboard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8005/api';
 
   const fetchAnalytics = async () => {
     setLoading(true);

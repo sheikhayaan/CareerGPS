@@ -20,7 +20,7 @@ export const AIExplanationModal: React.FC<AIExplanationModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [explanation, setExplanation] = useState<any>(null);
 
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8005/api';
 
   const fetchExplanation = async () => {
     setLoading(true);

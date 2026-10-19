@@ -21,7 +21,7 @@ export const CareerComparisonView: React.FC<ComparisonProps> = ({ roles = [], co
   const [allRoles, setAllRoles] = useState<any[]>(roles);
   const [allCountries, setAllCountries] = useState<any[]>(countries);
 
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8005/api';
 
   useEffect(() => {
     if (allRoles.length === 0 || allCountries.length === 0) {

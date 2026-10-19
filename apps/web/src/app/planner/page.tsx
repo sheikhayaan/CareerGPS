@@ -34,7 +34,7 @@ export default function PlannerPage() {
   const [aiSkill, setAiSkill] = useState<string | null>(null);
 
   const reportRef = useRef<HTMLDivElement>(null);
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8005/api';
 
   useEffect(() => {
     async function initTaxonomy() {

@@ -259,6 +259,158 @@ def save_career_roadmap(
     }
 
 
+def _seed_demo_roadmaps_if_needed(db: Session, profile: UserProfile):
+    """Provides initial interactive roadmaps for the verified demo learner portal."""
+    existing_count = db.query(SavedRoadmap).filter(SavedRoadmap.user_id == profile.id, SavedRoadmap.is_archived == False).count()
+    if existing_count > 0:
+        return
+
+    demo_plans = [
+        {
+            "title": "Full-Stack Data Scientist Masterplan (US)",
+            "target_role_slug": "data-scientist",
+            "target_role_title": "Data Scientist",
+            "target_country_code": "US",
+            "experience_level": "Mid-level",
+            "total_weeks": 12,
+            "weekly_hours": 15,
+            "weeks": [
+                {
+                    "week_number": 1,
+                    "title": "Python Data Science Foundations & Vectorized Computing",
+                    "skills": ["python", "numpy"],
+                    "focus": "Master vectorized operations, broadcasting, memory layouts, and clean scientific Python scripting.",
+                    "practice_exercises": ["NumPy array broadcasting drill", "Vectorized exploratory data analysis benchmark"],
+                    "completed": [True, True]
+                },
+                {
+                    "week_number": 2,
+                    "title": "Data Wrangling with Pandas & Relational SQL",
+                    "skills": ["pandas", "sql"],
+                    "focus": "High-performance tabular manipulations, window functions, and multi-table analytical joins.",
+                    "practice_exercises": ["Multi-index aggregation pipeline", "Complex window function SQL challenge"],
+                    "completed": [True, True]
+                },
+                {
+                    "week_number": 3,
+                    "title": "Statistical Inference & Hypothesis Testing",
+                    "skills": ["statistics"],
+                    "focus": "Parametric & non-parametric hypothesis tests, confidence interval bootstrapping, and statistical rigor.",
+                    "practice_exercises": ["A/B test power analysis calculation", "Bootstrap confidence interval simulation"],
+                    "completed": [True, True]
+                },
+                {
+                    "week_number": 4,
+                    "title": "Supervised Machine Learning with Scikit-Learn",
+                    "skills": ["machine-learning"],
+                    "focus": "Feature preprocessing, cross-validation, regularization, and gradient-boosted decision trees.",
+                    "practice_exercises": ["Customer churn classification pipeline", "Hyperparameter tuning with Optuna"],
+                    "completed": [True, False]
+                },
+                {
+                    "week_number": 5,
+                    "title": "Unsupervised Learning & Clustering",
+                    "skills": ["machine-learning"],
+                    "focus": "K-means, hierarchical clustering, DBSCAN, and PCA dimensionality reduction.",
+                    "practice_exercises": ["Customer market segmentation", "Dimensionality reduction with PCA"],
+                    "completed": [False, False]
+                },
+                {
+                    "week_number": 6,
+                    "title": "Deep Learning Fundamentals with PyTorch",
+                    "skills": ["deep-learning"],
+                    "focus": "Tensors, autograd, feedforward architectures, and backpropagation optimization.",
+                    "practice_exercises": ["Multi-layer perceptron tensor operations", "Computer vision convolutional classifier"],
+                    "completed": [False, False]
+                }
+            ]
+        },
+        {
+            "title": "Machine Learning Engineer Blueprint (US)",
+            "target_role_slug": "machine-learning-engineer",
+            "target_role_title": "Machine Learning Engineer",
+            "target_country_code": "US",
+            "experience_level": "Mid-level",
+            "total_weeks": 8,
+            "weekly_hours": 12,
+            "weeks": [
+                {
+                    "week_number": 1,
+                    "title": "Production Python & Containerization",
+                    "skills": ["python", "docker"],
+                    "focus": "Type hinting, asynchronous API design, Docker multi-stage builds, and CI container tests.",
+                    "practice_exercises": ["FastAPI microservice container", "Multi-stage Dockerfile optimization"],
+                    "completed": [True, True]
+                },
+                {
+                    "week_number": 2,
+                    "title": "ML Pipeline Orchestration & Feature Stores",
+                    "skills": ["machine-learning", "sql"],
+                    "focus": "Reproducible pipeline orchestration, artifact logging, and data versioning.",
+                    "practice_exercises": ["Automated feature store ingestion", "Airflow DAG model training workflow"],
+                    "completed": [True, False]
+                },
+                {
+                    "week_number": 3,
+                    "title": "Model Serving & High-Throughput Inference",
+                    "skills": ["machine-learning"],
+                    "focus": "Low-latency model serving, dynamic batching, and ONNX Runtime quantization.",
+                    "practice_exercises": ["Triton inference server benchmark", "ONNX runtime model quantization"],
+                    "completed": [False, False]
+                }
+            ]
+        }
+    ]
+
+    for p in demo_plans:
+        roadmap_payload = {
+            "title": p["title"],
+            "target_role": p["target_role_title"],
+            "target_role_slug": p["target_role_slug"],
+            "target_country_code": p["target_country_code"],
+            "total_weeks": p["total_weeks"],
+            "weekly_hours": p["weekly_hours"],
+            "weekly_plan": [
+                {
+                    "week_number": w["week_number"],
+                    "title": w["title"],
+                    "skills": w["skills"],
+                    "focus": w["focus"],
+                    "practice_exercises": w["practice_exercises"]
+                }
+                for w in p["weeks"]
+            ]
+        }
+
+        saved = SavedRoadmap(
+            user_id=profile.id,
+            title=p["title"],
+            target_role_slug=p["target_role_slug"],
+            target_role_title=p["target_role_title"],
+            target_country_code=p["target_country_code"],
+            experience_level=p["experience_level"],
+            total_weeks=p["total_weeks"],
+            weekly_hours=p["weekly_hours"],
+            roadmap_data_json=json.dumps(roadmap_payload)
+        )
+        db.add(saved)
+        db.commit()
+        db.refresh(saved)
+
+        for w in p["weeks"]:
+            for idx, task_name in enumerate(w["practice_exercises"]):
+                prog = RoadmapProgress(
+                    roadmap_id=saved.id,
+                    week_number=w["week_number"],
+                    task_identifier=f"w{w['week_number']}_t{idx}",
+                    task_title=task_name,
+                    skill_slug=w["skills"][0],
+                    is_completed=w["completed"][idx] if idx < len(w["completed"]) else False
+                )
+                db.add(prog)
+        db.commit()
+
+
 @router.get("/roadmaps", response_model=List[SavedRoadmapSummaryResponse])
 def list_user_roadmaps(
     current_user: AuthenticatedUser = Depends(get_current_user),
@@ -266,6 +418,7 @@ def list_user_roadmaps(
 ):
     """Lists all saved roadmaps for the authenticated user."""
     profile = _get_or_create_profile(db, current_user)
+    _seed_demo_roadmaps_if_needed(db, profile)
     roadmaps = (
         db.query(SavedRoadmap)
         .filter(SavedRoadmap.user_id == profile.id, SavedRoadmap.is_archived == False)

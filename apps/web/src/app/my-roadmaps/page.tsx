@@ -10,7 +10,38 @@ import {
   MapPin, Clock, CheckCircle2, Zap, Target
 } from 'lucide-react';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8005/api';
+
+const DEMO_FALLBACK_ROADMAPS = [
+  {
+    id: 'demo-roadmap-1',
+    title: 'Full-Stack Data Scientist Masterplan (US)',
+    target_role_slug: 'data-scientist',
+    target_role_title: 'Data Scientist',
+    target_country_code: 'US',
+    experience_level: 'Mid-level',
+    total_weeks: 12,
+    weekly_hours: 15,
+    total_tasks: 24,
+    completed_tasks: 16,
+    completion_percentage: 66.7,
+    created_at: new Date(Date.now() - 14 * 86400000).toISOString(),
+  },
+  {
+    id: 'demo-roadmap-2',
+    title: 'Machine Learning Engineer Blueprint (US)',
+    target_role_slug: 'machine-learning-engineer',
+    target_role_title: 'Machine Learning Engineer',
+    target_country_code: 'US',
+    experience_level: 'Mid-level',
+    total_weeks: 8,
+    weekly_hours: 12,
+    total_tasks: 16,
+    completed_tasks: 8,
+    completion_percentage: 50.0,
+    created_at: new Date(Date.now() - 7 * 86400000).toISOString(),
+  },
+];
 
 const countryFlags: Record<string, string> = { US: '🇺🇸', GB: '🇬🇧', CA: '🇨🇦', IN: '🇮🇳' };
 
@@ -30,20 +61,24 @@ function ProgressRing({ percent, color = '#6366F1' }: { percent: number; color?:
 
 export default function MyRoadmapsPage() {
   const { user, token, loginWithEmail } = useAuth();
-  const [roadmaps, setRoadmaps] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [roadmaps, setRoadmaps] = useState<any[]>(DEMO_FALLBACK_ROADMAPS);
+  const [loading, setLoading] = useState(false);
   const [loggingIn, setLoggingIn] = useState(false);
 
   useEffect(() => {
     async function fetchRoadmaps() {
-      if (!token) { setLoading(false); return; }
+      if (!token) return;
       try {
         const res = await fetch(`${API_BASE}/user/roadmaps`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        if (res.ok) setRoadmaps(await res.json());
-      } catch (err) { console.error('Failed to load roadmaps', err); }
-      finally { setLoading(false); }
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) setRoadmaps(data);
+        }
+      } catch (err) {
+        console.error('Failed to load roadmaps', err);
+      }
     }
     fetchRoadmaps();
   }, [token]);
