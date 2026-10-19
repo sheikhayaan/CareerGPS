@@ -1,0 +1,73 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/cache
+
+# Python Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Next.js Build Outputs
+.next/
+out/
+build/
+dist/
+
+# Environment Variables & Secrets (CRITICAL SECURITY)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+*.env.*
+!*.env.example
+
+# Local Databases (Keep schema & migrations, ignore local runtime databases)
+*.db
+*.sqlite
+*.sqlite3
+apps/api/careergps.db
+
+# Logs & Debug
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Task & Temp Files
+scratch/
+tmp/
+temp/
+
+# GitHub Workflows (Requires workflow token scope)
+.github/
+

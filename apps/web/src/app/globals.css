@@ -1,0 +1,612 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #060912;
+  --foreground: #F8FAFC;
+  --primary: #6366F1;
+  --accent: #06B6D4;
+  --surface: #0E1525;
+  --surface-hover: #161E30;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code, .font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ==========================================
+   PHYSICS 3D CARD SYSTEM
+   ========================================== */
+
+.card-3d {
+  transform-style: preserve-3d;
+  transition: 
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.4s ease,
+    border-color 0.3s ease;
+  will-change: transform, box-shadow;
+  cursor: default;
+}
+
+.card-3d:hover {
+  transform: translateY(-8px) translateZ(16px) rotateX(3deg) rotateY(-1.5deg);
+  box-shadow: 
+    0 30px 60px -20px rgba(99, 102, 241, 0.22),
+    0 0 30px -5px rgba(6, 182, 212, 0.15),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.card-3d-strong:hover {
+  transform: translateY(-12px) translateZ(24px) rotateX(4deg) rotateY(-2deg);
+  box-shadow:
+    0 40px 80px -25px rgba(99, 102, 241, 0.35),
+    0 0 40px -5px rgba(6, 182, 212, 0.2);
+}
+
+/* ==========================================
+   MAGNETIC BUTTON PHYSICS
+   ========================================== */
+
+.btn-magnetic {
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.btn-magnetic:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 30px -8px rgba(99, 102, 241, 0.45);
+}
+
+.btn-magnetic:active {
+  transform: translateY(1px) scale(0.97);
+  transition-duration: 0.1s;
+}
+
+/* Interactive press */
+.interactive-press {
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.interactive-press:hover {
+  transform: translateY(-2px) scale(1.025);
+}
+
+.interactive-press:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+/* ==========================================
+   ADVANCED FLOATING ANIMATIONS
+   ========================================== */
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+  33% { transform: translateY(-18px) rotate(2deg) scale(1.02); }
+  66% { transform: translateY(-8px) rotate(-1deg) scale(0.99); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(14px) rotate(-2deg); }
+}
+
+@keyframes floatDiagonal {
+  0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+  25% { transform: translate(8px, -12px) rotate(1.5deg); }
+  75% { transform: translate(-6px, 10px) rotate(-1deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.12); }
+}
+
+@keyframes pulseGlowStrong {
+  0%, 100% { opacity: 0.2; transform: scale(1); filter: blur(80px); }
+  50% { opacity: 0.6; transform: scale(1.2); filter: blur(100px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spinOrbit {
+  from { transform: rotate(0deg) translateX(160px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(160px) rotate(-360deg); }
+}
+
+@keyframes spinOrbitReverse {
+  from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+  to { transform: rotate(-360deg) translateX(120px) rotate(360deg); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scanLine {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes particleDrift {
+  0% { transform: translate(0, 0) scale(1); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes borderGlow {
+  0%, 100% { border-color: rgba(99,102,241,0.3); box-shadow: 0 0 0 rgba(99,102,241,0); }
+  50% { border-color: rgba(99,102,241,0.7); box-shadow: 0 0 20px rgba(99,102,241,0.2); }
+}
+
+@keyframes counterUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rotateGlobe {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes morphBlob {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  33% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+  66% { border-radius: 50% 60% 40% 50% / 40% 70% 30% 60%; }
+}
+
+/* ==========================================
+   ANIMATION CLASSES
+   ========================================== */
+
+.animate-float-slow {
+  animation: floatSlow 8s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: floatReverse 10s ease-in-out infinite;
+}
+
+.animate-float-diagonal {
+  animation: floatDiagonal 12s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 5s ease-in-out infinite;
+}
+
+.animate-pulse-glow-strong {
+  animation: pulseGlowStrong 6s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradientShift 5s ease infinite;
+}
+
+.animate-border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+.animate-morph-blob {
+  animation: morphBlob 10s ease-in-out infinite;
+}
+
+.animate-spin-orbit {
+  animation: spinOrbit 12s linear infinite;
+}
+
+.animate-spin-orbit-reverse {
+  animation: spinOrbitReverse 18s linear infinite;
+}
+
+/* ==========================================
+   SHIMMER / SKELETON LOADING
+   ========================================== */
+
+.bg-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.05) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(30,41,59,0.5) 0%,
+    rgba(51,65,85,0.8) 50%,
+    rgba(30,41,59,0.5) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+  border-radius: 8px;
+}
+
+/* ==========================================
+   GLASSMORPHISM
+   ========================================== */
+
+.glass {
+  background: rgba(14, 21, 37, 0.7);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.glass-strong {
+  background: rgba(14, 21, 37, 0.85);
+  backdrop-filter: blur(32px) saturate(1.8);
+  -webkit-backdrop-filter: blur(32px) saturate(1.8);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ==========================================
+   GRADIENT TEXT
+   ========================================== */
+
+.gradient-text-primary {
+  background: linear-gradient(135deg, #818CF8 0%, #6366F1 35%, #06B6D4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-glow {
+  background: linear-gradient(135deg, #E0E7FF 0%, #A5B4FC 40%, #67E8F9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(99,102,241,0.4));
+}
+
+/* ==========================================
+   STAGGER ANIMATION DELAYS
+   ========================================== */
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* ==========================================
+   NEON GLOW EFFECTS
+   ========================================== */
+
+.neon-primary {
+  box-shadow: 0 0 15px rgba(99,102,241,0.4), 0 0 30px rgba(99,102,241,0.2), 0 0 60px rgba(99,102,241,0.1);
+}
+
+.neon-accent {
+  box-shadow: 0 0 15px rgba(6,182,212,0.4), 0 0 30px rgba(6,182,212,0.2), 0 0 60px rgba(6,182,212,0.1);
+}
+
+.text-neon-primary {
+  text-shadow: 0 0 20px rgba(99,102,241,0.8), 0 0 40px rgba(99,102,241,0.4);
+}
+
+/* ==========================================
+   PROGRESS BARS
+   ========================================== */
+
+@keyframes progressFill {
+  from { width: 0%; }
+  to { width: var(--target-width, 100%); }
+}
+
+.progress-bar-animated {
+  animation: progressFill 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ==========================================
+   SCROLLBAR STYLING
+   ========================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.6);
+}
+
+/* ==========================================
+   SELECTION
+   ========================================== */
+
+::selection {
+  background: rgba(99, 102, 241, 0.35);
+  color: #fff;
+}
+
+/* ==========================================
+   FOCUS VISIBLE
+   ========================================== */
+
+:focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.6);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ==========================================
+   CAREER INTELLIGENCE TREE ANIMATION
+   (Inspired by PROJECT AIWORLD)
+   ========================================== */
+
+.career-feature-tree-container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  min-height: 720px;
+  margin: 0 auto;
+  perspective: 1200px;
+}
+
+.career-feature-tree {
+  position: relative;
+  width: 100%;
+  height: 720px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 0 60px rgba(99, 102, 241, 0.28));
+}
+
+.feature-tree-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.tree-trunk,
+.tree-spiral,
+.tree-branch,
+.tree-roots path {
+  fill: none;
+  stroke: url(#careerTreeGlow);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tree-trunk {
+  stroke-width: 15;
+  opacity: 0.75;
+  stroke-dasharray: 18 22;
+  animation: treeEnergy 5.8s linear infinite;
+  filter: drop-shadow(0 0 18px rgba(99, 102, 241, 0.7));
+}
+
+.trunk-b {
+  stroke-width: 8;
+  opacity: 0.55;
+  animation-duration: 7.2s;
+  animation-direction: reverse;
+}
+
+.tree-spiral {
+  stroke-width: 3.5;
+  opacity: 0.85;
+  stroke-dasharray: 12 18;
+  animation: treeEnergy 4.8s linear infinite, treeOrbit 7s ease-in-out infinite;
+  filter: drop-shadow(0 0 16px rgba(6, 182, 212, 0.8));
+}
+
+.tree-spiral.second {
+  opacity: 0.6;
+  animation-direction: reverse;
+}
+
+.tree-branch {
+  stroke-width: 6;
+  opacity: 0.85;
+  stroke-dasharray: 10 14;
+  animation: treeEnergy 5.6s linear infinite;
+  filter: drop-shadow(0 0 14px rgba(99, 102, 241, 0.6));
+}
+
+.tree-roots path {
+  stroke-width: 4.5;
+  opacity: 0.5;
+  stroke-dasharray: 8 14;
+  animation: treeEnergy 6.8s linear infinite;
+}
+
+.tree-node-circle {
+  fill: #E0E7FF;
+  stroke: #6366F1;
+  stroke-width: 3.5;
+  filter: drop-shadow(0 0 16px rgba(99, 102, 241, 1));
+  animation: treeNodePulse 2.8s ease-in-out infinite;
+}
+
+@keyframes treeEnergy {
+  to { stroke-dashoffset: -220; }
+}
+
+@keyframes treeOrbit {
+  0%, 100% { transform: translateY(0px) scale(1); opacity: 0.85; }
+  50% { transform: translateY(-10px) scale(1.025); opacity: 1; }
+}
+
+@keyframes treeNodePulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.8)); }
+  50% { transform: scale(1.3); filter: drop-shadow(0 0 28px rgba(6, 182, 212, 1)); fill: #FFFFFF; }
+}
+
+@keyframes fruitNodeFloat {
+  0%, 100% { transform: translate3d(0, 0px, 0px) scale(1); }
+  50% { transform: translate3d(0, -14px, 35px) scale(1.05); filter: brightness(1.22); }
+}
+
+.tree-fruit {
+  position: absolute;
+  width: clamp(145px, 14vw, 195px);
+  min-height: 105px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #fff;
+  text-decoration: none;
+  pointer-events: auto;
+  transform-style: preserve-3d;
+  animation: fruitNodeFloat 4.6s ease-in-out infinite;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 20;
+}
+
+.tree-fruit:hover {
+  transform: scale(1.15) translate3d(0, -10px, 45px);
+}
+
+.tree-fruit .fruit-orb {
+  width: clamp(54px, 5.2vw, 70px);
+  height: clamp(54px, 5.2vw, 70px);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 34% 28%, #fff 0 12%, transparent 14%),
+    radial-gradient(circle at 45% 45%, rgba(255,255,255,.98), rgba(99,102,241,.9) 45%, rgba(6,182,212,.6) 75%, rgba(10,15,30,.9) 100%);
+  border: 1.5px solid rgba(255,255,255,.5);
+  box-shadow:
+    0 0 26px rgba(99,102,241,.6),
+    0 0 58px rgba(6,182,212,.4),
+    inset -10px -14px 22px rgba(0,0,0,.55),
+    inset 8px 8px 20px rgba(255,255,255,.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.tree-fruit:hover .fruit-orb {
+  box-shadow:
+    0 0 38px rgba(99,102,241,.95),
+    0 0 85px rgba(6,182,212,.75),
+    inset -10px -14px 22px rgba(0,0,0,.4),
+    inset 8px 8px 25px rgba(255,255,255,.6);
+  border-color: #fff;
+}
+
+.tree-fruit .fruit-title {
+  display: block;
+  font-size: clamp(13px, 1.15vw, 16px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 18px rgba(255,255,255,.45);
+  text-align: center;
+  color: #F8FAFC;
+}
+
+.tree-fruit .fruit-subtitle {
+  display: block;
+  max-width: 170px;
+  color: rgba(226,232,240,.75);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  background: rgba(14, 21, 37, 0.75);
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+}
+
+.tree-fruit-1 { left: 5%; top: 48%; animation-delay: -0.3s; }
+.tree-fruit-2 { right: 4%; top: 43%; animation-delay: -0.9s; }
+.tree-fruit-3 { left: 2%; top: 25%; animation-delay: -1.5s; }
+.tree-fruit-4 { right: 1%; top: 22%; animation-delay: -2.1s; }
+.tree-fruit-5 { left: 17%; top: 6%; animation-delay: -2.7s; }
+.tree-fruit-6 { right: 15%; top: 4%; animation-delay: -3.3s; }
+
+@media (max-width: 768px) {
+  .career-feature-tree-container {
+    min-height: 600px;
+  }
+  .career-feature-tree {
+    height: 600px;
+  }
+  .tree-fruit {
+    width: 120px;
+  }
+  .tree-fruit .fruit-subtitle {
+    display: none;
+  }
+}

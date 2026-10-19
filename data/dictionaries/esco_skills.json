@@ -1,0 +1,33 @@
+{
+  "source": "European Skills, Competences, Qualifications and Occupations (ESCO v1.1.1)",
+  "license": "European Union Public Licence (EUPL) & Open Data",
+  "skills": [
+    {"slug": "sql", "name": "SQL", "category": "Database", "esco_uri": "http://data.europa.eu/esco/skill/sql-querying", "aliases": ["sql", "structured query language", "postgresql", "mysql", "tsql", "plsql"]},
+    {"slug": "python", "name": "Python", "category": "Language", "esco_uri": "http://data.europa.eu/esco/skill/python-programming", "aliases": ["python", "python3", "py"]},
+    {"slug": "excel", "name": "Excel / Spreadsheets", "category": "Tool", "esco_uri": "http://data.europa.eu/esco/skill/spreadsheet-software", "aliases": ["excel", "ms excel", "spreadsheets", "vlookup", "pivot tables"]},
+    {"slug": "tableau", "name": "Tableau", "category": "Tool", "esco_uri": "http://data.europa.eu/esco/skill/tableau-software", "aliases": ["tableau", "tableau desktop", "tableau server"]},
+    {"slug": "power-bi", "name": "Power BI", "category": "Tool", "esco_uri": "http://data.europa.eu/esco/skill/power-bi", "aliases": ["power bi", "powerbi", "dax", "power query"]},
+    {"slug": "pandas", "name": "Pandas", "category": "Framework", "esco_uri": "http://data.europa.eu/esco/skill/python-pandas", "aliases": ["pandas"]},
+    {"slug": "r", "name": "R", "category": "Language", "esco_uri": "http://data.europa.eu/esco/skill/r-programming", "aliases": ["r language", "r programming", "r-project"]},
+    {"slug": "scikit-learn", "name": "Scikit-Learn", "category": "Framework", "esco_uri": "http://data.europa.eu/esco/skill/scikit-learn", "aliases": ["scikit-learn", "sklearn"]},
+    {"slug": "machine-learning", "name": "Machine Learning", "category": "Concept", "esco_uri": "http://data.europa.eu/esco/skill/machine-learning", "aliases": ["machine learning", "ml", "statistical learning"]},
+    {"slug": "statistics", "name": "Statistical Analysis", "category": "Concept", "esco_uri": "http://data.europa.eu/esco/skill/statistical-analysis", "aliases": ["statistics", "statistical analysis", "hypothesis testing", "regression analysis", "a/b testing"]},
+    {"slug": "deep-learning", "name": "Deep Learning", "category": "Concept", "esco_uri": "http://data.europa.eu/esco/skill/deep-learning", "aliases": ["deep learning", "neural networks", "cnn", "rnn", "transformers"]},
+    {"slug": "pytorch", "name": "PyTorch", "category": "Framework", "esco_uri": "http://data.europa.eu/esco/skill/pytorch", "aliases": ["pytorch", "torch"]},
+    {"slug": "docker", "name": "Docker", "category": "Tool", "esco_uri": "http://data.europa.eu/esco/skill/docker-containerization", "aliases": ["docker", "containers", "containerization"]},
+    {"slug": "git", "name": "Git / GitHub", "category": "Tool", "esco_uri": "http://data.europa.eu/esco/skill/version-control-git", "aliases": ["git", "github", "gitlab", "version control"]},
+    {"slug": "fastapi", "name": "FastAPI", "category": "Framework", "esco_uri": "http://data.europa.eu/esco/skill/fastapi-framework", "aliases": ["fastapi"]},
+    {"slug": "postgresql", "name": "PostgreSQL", "category": "Database", "esco_uri": "http://data.europa.eu/esco/skill/postgresql", "aliases": ["postgresql", "postgres", "psql"]},
+    {"slug": "data-warehousing", "name": "Data Warehousing", "category": "Concept", "esco_uri": "http://data.europa.eu/esco/skill/data-warehousing", "aliases": ["data warehousing", "data warehouse", "snowflake", "bigquery", "redshift"]},
+    {"slug": "network-security", "name": "Network Security", "category": "Concept", "esco_uri": "http://data.europa.eu/esco/skill/network-security", "aliases": ["network security", "firewalls", "vpn", "cyber defense", "intrusion detection"]},
+    {"slug": "aws", "name": "Amazon Web Services (AWS)", "category": "Cloud", "esco_uri": "http://data.europa.eu/esco/skill/aws-cloud", "aliases": ["aws", "amazon web services", "s3", "ec2", "lambda"]},
+    {"slug": "data-cleaning", "name": "Data Cleaning", "category": "Concept", "esco_uri": "http://data.europa.eu/esco/skill/data-cleaning", "aliases": ["data cleaning", "data wrangling", "data preprocessing"]},
+    {"slug": "data-visualization", "name": "Data Visualization", "category": "Concept", "esco_uri": "http://data.europa.eu/esco/skill/data-visualization", "aliases": ["data visualization", "dataviz", "dashboarding", "charts"]},
+    {"slug": "rest-apis", "name": "REST APIs", "category": "Concept", "esco_uri": "http://data.europa.eu/esco/skill/rest-apis", "aliases": ["rest", "restful", "rest api", "apis"]},
+    {"slug": "ci-cd", "name": "CI/CD", "category": "Concept", "esco_uri": "http://data.europa.eu/esco/skill/ci-cd-pipelines", "aliases": ["ci/cd", "continuous integration", "github actions", "jenkins"]},
+    {"slug": "mlops", "name": "MLOps", "category": "Concept", "esco_uri": "http://data.europa.eu/esco/skill/mlops", "aliases": ["mlops", "model deployment", "model monitoring", "mlflow"]},
+    {"slug": "business-intelligence", "name": "Business Intelligence", "category": "Concept", "esco_uri": "http://data.europa.eu/esco/skill/business-intelligence", "aliases": ["bi", "business intelligence", "reporting"]},
+    {"slug": "vulnerability-assessment", "name": "Vulnerability Assessment", "category": "Concept", "esco_uri": "http://data.europa.eu/esco/skill/vulnerability-assessment", "aliases": ["vulnerability assessment", "pen testing", "penetration testing"]},
+    {"slug": "siem", "name": "SIEM", "category": "Tool", "esco_uri": "http://data.europa.eu/esco/skill/siem-tools", "aliases": ["siem", "splunk", "sentinel", "qradar"]}
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "source": "U.S. Bureau of Labor Statistics (BLS) Occupational Employment and Wage Statistics (OEWS) May 2023 / 2024 Release",
+  "license": "Public Domain (U.S. Government Work)",
+  "reference_currency": "USD",
+  "benchmarks": {
+    "data-analyst": {
+      "soc_code": "15-2051.01",
+      "national_estimates": {
+        "mean_annual": 82510,
+        "p10_annual": 48200,
+        "p25_annual": 61400,
+        "median_annual": 78520,
+        "p75_annual": 102400,
+        "p90_annual": 128900
+      }
+    },
+    "data-scientist": {
+      "soc_code": "15-2051.00",
+      "national_estimates": {
+        "mean_annual": 119040,
+        "p10_annual": 61070,
+        "p25_annual": 84970,
+        "median_annual": 108020,
+        "p75_annual": 143630,
+        "p90_annual": 184090
+      }
+    },
+    "software-engineer": {
+      "soc_code": "15-1252.00",
+      "national_estimates": {
+        "mean_annual": 138110,
+        "p10_annual": 77020,
+        "p25_annual": 101370,
+        "median_annual": 132270,
+        "p75_annual": 168290,
+        "p90_annual": 208620
+      }
+    },
+    "machine-learning-engineer": {
+      "soc_code": "15-1299.08",
+      "national_estimates": {
+        "mean_annual": 145080,
+        "p10_annual": 85000,
+        "p25_annual": 112000,
+        "median_annual": 142000,
+        "p75_annual": 178000,
+        "p90_annual": 218000
+      }
+    },
+    "business-analyst": {
+      "soc_code": "13-1111.00",
+      "national_estimates": {
+        "mean_annual": 104660,
+        "p10_annual": 55840,
+        "p25_annual": 73200,
+        "median_annual": 99410,
+        "p75_annual": 131230,
+        "p90_annual": 167650
+      }
+    },
+    "cybersecurity-analyst": {
+      "soc_code": "15-1212.00",
+      "national_estimates": {
+        "mean_annual": 124740,
+        "p10_annual": 69210,
+        "p25_annual": 90750,
+        "median_annual": 120360,
+        "p75_annual": 156180,
+        "p90_annual": 182370
+      }
+    }
+  }
+}

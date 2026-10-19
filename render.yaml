@@ -1,0 +1,31 @@
+services:
+  # Backend FastAPI API Service on Render
+  - type: web
+    name: careergps-api
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "pip install -r apps/api/requirements.txt && pip install pyjwt cryptography posthog"
+    startCommand: "cd apps/api && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DATABASE_URL
+        fromDatabase:
+          name: careergps-postgres
+          property: connectionString
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+      - key: ADMIN_API_KEY
+        generateValue: true
+      - key: BACKEND_CORS_ORIGINS
+        value: "https://careergps.vercel.app,http://localhost:3000"
+
+databases:
+  # Managed PostgreSQL Database on Render
+  - name: careergps-postgres
+    plan: free
+    region: oregon
+    databaseName: careergps
+    user: careergps_user

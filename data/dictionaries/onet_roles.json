@@ -1,0 +1,48 @@
+{
+  "source": "O*NET 28.0 Database (U.S. Department of Labor)",
+  "license": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+  "roles": [
+    {
+      "slug": "data-analyst",
+      "title": "Data Analyst",
+      "onet_soc_code": "15-2051.01",
+      "description": "Examine raw data to draw conclusions about information using automated tools and statistical methods.",
+      "skills": ["SQL", "Excel / Spreadsheets", "Tableau", "Power BI", "Python", "Statistical Analysis", "Data Cleaning", "Data Visualization", "Pandas"]
+    },
+    {
+      "slug": "data-scientist",
+      "title": "Data Scientist",
+      "onet_soc_code": "15-2051.00",
+      "description": "Develop and implement algorithms, predictive models, and custom statistical analyses for complex data sets.",
+      "skills": ["Python", "SQL", "Machine Learning", "Scikit-Learn", "Pandas", "Statistical Analysis", "Deep Learning", "PyTorch", "R"]
+    },
+    {
+      "slug": "software-engineer",
+      "title": "Software Engineer",
+      "onet_soc_code": "15-1252.00",
+      "description": "Research, design, and develop computer and network software or specialized utility programs.",
+      "skills": ["Python", "Git / GitHub", "Docker", "PostgreSQL", "FastAPI", "Amazon Web Services (AWS)", "REST APIs", "Unit Testing", "CI/CD"]
+    },
+    {
+      "slug": "machine-learning-engineer",
+      "title": "Machine Learning Engineer",
+      "onet_soc_code": "15-1299.08",
+      "description": "Design and build production-grade machine learning pipelines, model deployment, and optimization systems.",
+      "skills": ["Python", "Machine Learning", "PyTorch", "Docker", "Git / GitHub", "Scikit-Learn", "FastAPI", "Amazon Web Services (AWS)", "MLOps"]
+    },
+    {
+      "slug": "business-analyst",
+      "title": "Business Analyst",
+      "onet_soc_code": "13-1111.00",
+      "description": "Study organization operations, business procedures, and workflows to design improved data-driven solutions.",
+      "skills": ["SQL", "Excel / Spreadsheets", "Power BI", "Tableau", "Business Intelligence", "Requirements Gathering", "Data Visualization"]
+    },
+    {
+      "slug": "cybersecurity-analyst",
+      "title": "Cybersecurity Analyst",
+      "onet_soc_code": "15-1212.00",
+      "description": "Plan, implement, and upgrade security measures for the protection of computer networks and information.",
+      "skills": ["Network Security", "Vulnerability Assessment", "SIEM", "Incident Response", "Python", "Linux", "Firewalls", "Information Security"]
+    }
+  ]
+}
