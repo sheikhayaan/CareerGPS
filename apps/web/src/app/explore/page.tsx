@@ -422,7 +422,7 @@ export default function ExploreCareersPage() {
                   ) : (
                     <div className="space-y-3 pt-2">
                       {[...Array(6)].map((_, i) => (
-                        <div key={i} className="skeleton h-7" style={{ width: `${60 + Math.random() * 35}%` }} />
+                        <div key={i} className="skeleton h-7" style={{ width: `${65 + ((i * 7) % 30)}%` }} />
                       ))}
                     </div>
                   )}

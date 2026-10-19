@@ -131,9 +131,8 @@ function ParticleField() {
   );
 }
 
-// 3D Floating orb with physics
-function FloatingOrb({ color, size, delay, className }: {
-  color: string; size: string; delay: string; className?: string;
+function FloatingOrb({ color, size, delay, className, duration = '14s' }: {
+  color: string; size: string; delay: string; className?: string; duration?: string;
 }) {
   return (
     <div
@@ -144,7 +143,7 @@ function FloatingOrb({ color, size, delay, className }: {
         background: `radial-gradient(circle at 30% 30%, ${color}40, ${color}10, transparent)`,
         filter: `blur(60px)`,
         animationDelay: delay,
-        animationDuration: `${12 + Math.random() * 6}s`,
+        animationDuration: duration,
       }}
     />
   );
@@ -319,9 +318,9 @@ export default function LandingPage() {
       </div>
 
       {/* Morphing Orbs */}
-      <FloatingOrb color="#6366F1" size="700px" delay="0s" className="top-[-200px] left-[-200px]" />
-      <FloatingOrb color="#06B6D4" size="600px" delay="-3s" className="top-[20%] right-[-250px]" />
-      <FloatingOrb color="#818CF8" size="500px" delay="-6s" className="bottom-[10%] left-[20%]" />
+      <FloatingOrb color="#6366F1" size="700px" delay="0s" duration="14s" className="top-[-200px] left-[-200px]" />
+      <FloatingOrb color="#06B6D4" size="600px" delay="-3s" duration="16s" className="top-[20%] right-[-250px]" />
+      <FloatingOrb color="#818CF8" size="500px" delay="-6s" duration="18s" className="bottom-[10%] left-[20%]" />
 
       <main className="flex-1 relative z-10">
 
@@ -494,11 +493,11 @@ export default function LandingPage() {
 
                 {/* Floating skill nodes */}
                 {[
-                  { label: 'Python', x: '-60px', y: '50px', color: '#6366F1' },
-                  { label: 'SQL', x: '140px', y: '30px', color: '#06B6D4' },
-                  { label: 'ML', x: '30px', y: '160px', color: '#818CF8' },
-                  { label: 'AWS', x: '-40px', y: '140px', color: '#10B981' },
-                ].map(({ label, x, y, color }) => (
+                  { label: 'Python', x: '-60px', y: '50px', color: '#6366F1', delay: '0.8s' },
+                  { label: 'SQL', x: '140px', y: '30px', color: '#06B6D4', delay: '1.6s' },
+                  { label: 'ML', x: '30px', y: '160px', color: '#818CF8', delay: '2.4s' },
+                  { label: 'AWS', x: '-40px', y: '140px', color: '#10B981', delay: '3.2s' },
+                ].map(({ label, x, y, color, delay }) => (
                   <div key={label}
                     className="absolute px-3 py-1 rounded-xl text-[11px] font-bold animate-float-slow"
                     style={{
@@ -506,7 +505,7 @@ export default function LandingPage() {
                       background: `${color}20`,
                       border: `1px solid ${color}50`,
                       color,
-                      animationDelay: `${Math.random() * 4}s`,
+                      animationDelay: delay,
                     }}>
                     {label}
                   </div>
