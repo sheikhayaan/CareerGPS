@@ -18,9 +18,12 @@ from app.db.seed import seed_taxonomy_and_samples
 from app.api.v1.endpoints import router as api_v1_router
 
 # Initialize database schema & seed initial taxonomy
-Base.metadata.create_all(bind=engine)
-with SessionLocal() as db:
-    seed_taxonomy_and_samples(db)
+try:
+    Base.metadata.create_all(bind=engine)
+    with SessionLocal() as db:
+        seed_taxonomy_and_samples(db)
+except Exception as e:
+    print(f"[Database Bootstrap Notice]: {e}")
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
