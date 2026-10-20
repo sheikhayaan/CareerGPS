@@ -20,8 +20,35 @@
 
 ---
 
+## 📖 Repository Description & Executive Overview
+
+> **"Navigate Your Career With Empirical Evidence, Not Generic Advice."**
+
+**CareerGPS** is a production-grade, full-stack labor market intelligence platform that replaces speculative career guidance with reproducible, empirical labor analytics. By combining live job posting observations across 5 global markets (US, UK, Canada, Germany, India) with the U.S. Department of Labor's **O\*NET 28.0 Occupational Taxonomy** and a strict **Directed Acyclic Graph (DAG) Knowledge Graph**, CareerGPS computes realistic salary quartiles, uncovers true employer skill demand frequencies, and generates mathematically sequenced, week-by-week learning curricula.
+
+### 🎯 The Core Problem CareerGPS Solves
+
+| Traditional Career Guidance Pain Point | The CareerGPS Empirical Solution |
+| :--- | :--- |
+| **Misleading Single-Number Averages**: Sites quote inflated national averages that fail to separate entry-level baselines from senior comp. | **Non-Parametric Salary Quartiles**: Computes exact $P_{25}$, Median $P_{50}$, and $P_{75}$ quartiles with Tukey IQR outlier filtering ($1.5 \times \text{IQR}$) and 1,000-iteration bootstrap confidence intervals. |
+| **Hallucinated & Inverted Learning Sequences**: LLM chatbots frequently output illogical roadmaps (e.g., studying Deep Learning before Matrix Math or Pandas before basic Python). | **Kahn's Topological DAG Engine**: Models competencies as a strict Directed Acyclic Graph. Guarantees prerequisite mastery before downstream technologies are scheduled. |
+| **Speculative "Hot Skills" Advice**: Courses promote trending buzzwords that represent less than 5% of actual employer job listings. | **Direct Labor Demand Extraction**: Regex-boundary skill matching against 1,388 verified listings calculates exact employer mandate percentages (e.g., Python: 84.2%, SQL: 78.5%). |
+| **High Barrier to Verification**: Requires paid LLM subscriptions, complicated API configurations, or broken auth walls. | **Zero-Friction Verified Learner Sandbox**: Instant one-click demo session (`student@careergps.ai`) pre-populated with active interactive roadmaps and 100% offline fallback reliability. |
+
+---
+
+### 🏷️ GitHub Repository Metadata (Recommended Configuration)
+
+- **Repository Title**: `CareerGPS`
+- **Short Tagline / Description**: `Global AI Career Intelligence & Empirical Labor Market Analytics Platform. Features O*NET 28.0 DAG knowledge graph, non-parametric salary quartiles, high-concurrency FastAPI backend, and Next.js 15 client.`
+- **Website URL**: `http://localhost:3000`
+- **Recommended Topics / Tags**: `career-intelligence`, `labor-market-analytics`, `fastapi`, `nextjs15`, `knowledge-graph`, `dag-scheduling`, `salary-benchmarks`, `onet-taxonomy`, `data-science`, `high-concurrency`, `postgresql`
+
+---
+
 ## 📑 Table of Contents
 
+- [📖 Repository Description & Executive Overview](#-repository-description--executive-overview)
 - [1. 🌟 System Architecture Topology & Glowing Engine Flow](#1--system-architecture-topology--glowing-engine-flow)
 - [2. 📊 Empirical Labor Market Visualizations (Pie Chart & Histograms)](#2--empirical-labor-market-visualizations-pie-chart--histograms)
   - [2.1 Global Career Domain Distribution (Pie Chart)](#21-global-career-domain-distribution-pie-chart)
