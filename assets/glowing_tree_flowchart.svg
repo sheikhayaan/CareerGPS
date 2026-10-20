@@ -1,0 +1,297 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0E1628"/>
+      <stop offset="60%" stop-color="#080C16"/>
+      <stop offset="100%" stop-color="#04060A"/>
+    </radialGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="glow-indigo" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="glow-emerald" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="glow-amber" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Linear Gradients for Cards & Connectors -->
+    <linearGradient id="grad-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+
+    <linearGradient id="grad-indigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+
+    <linearGradient id="grad-emerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+
+    <linearGradient id="grad-amber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+
+    <linearGradient id="grad-rose" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F43F5E"/>
+      <stop offset="100%" stop-color="#BE123C"/>
+    </linearGradient>
+
+    <!-- Embedded CSS Animation Styles -->
+    <style>
+      .tree-connector {
+        stroke-dasharray: 8 6;
+        animation: streamFlow 2.5s linear infinite;
+      }
+      .tree-connector-fast {
+        stroke-dasharray: 6 4;
+        animation: streamFlow 1.6s linear infinite;
+      }
+      .pulse-core {
+        animation: corePulse 3s ease-in-out infinite alternate;
+      }
+      .node-pulse-cyan {
+        animation: cyanPulse 2.8s ease-in-out infinite alternate;
+      }
+      .node-pulse-indigo {
+        animation: indigoPulse 3.2s ease-in-out infinite alternate;
+      }
+      .node-pulse-emerald {
+        animation: emeraldPulse 2.6s ease-in-out infinite alternate;
+      }
+      .ambient-halo {
+        animation: haloFade 5s ease-in-out infinite alternate;
+      }
+
+      @keyframes streamFlow {
+        from { stroke-dashoffset: 28; }
+        to { stroke-dashoffset: 0; }
+      }
+      @keyframes corePulse {
+        0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(99,102,241,0.5)); }
+        100% { transform: scale(1.02); filter: drop-shadow(0 0 24px rgba(6,182,212,0.8)); }
+      }
+      @keyframes cyanPulse {
+        0% { filter: drop-shadow(0 0 6px rgba(6,182,212,0.4)); }
+        100% { filter: drop-shadow(0 0 16px rgba(6,182,212,0.85)); }
+      }
+      @keyframes indigoPulse {
+        0% { filter: drop-shadow(0 0 6px rgba(99,102,241,0.4)); }
+        100% { filter: drop-shadow(0 0 16px rgba(139,92,246,0.85)); }
+      }
+      @keyframes emeraldPulse {
+        0% { filter: drop-shadow(0 0 6px rgba(16,185,129,0.4)); }
+        100% { filter: drop-shadow(0 0 16px rgba(16,185,129,0.85)); }
+      }
+      @keyframes haloFade {
+        0% { opacity: 0.25; }
+        100% { opacity: 0.6; }
+      }
+
+      text {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+    </style>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="960" height="560" rx="16" fill="url(#bgGrad)" stroke="rgba(99,102,241,0.25)" stroke-width="1.5"/>
+
+  <!-- Subtle Grid Lines -->
+  <g stroke="rgba(255,255,255,0.03)" stroke-width="1">
+    <line x1="80" y1="0" x2="80" y2="560" />
+    <line x1="200" y1="0" x2="200" y2="560" />
+    <line x1="320" y1="0" x2="320" y2="560" />
+    <line x1="440" y1="0" x2="440" y2="560" />
+    <line x1="560" y1="0" x2="560" y2="560" />
+    <line x1="680" y1="0" x2="680" y2="560" />
+    <line x1="800" y1="0" x2="800" y2="560" />
+    <line x1="0" y1="100" x2="960" y2="100" />
+    <line x1="0" y1="200" x2="960" y2="200" />
+    <line x1="0" y1="300" x2="960" y2="300" />
+    <line x1="0" y1="400" x2="960" y2="400" />
+    <line x1="0" y1="500" x2="960" y2="500" />
+  </g>
+
+  <!-- Ambient Glowing Blobs -->
+  <circle cx="480" cy="270" r="160" fill="#6366F1" opacity="0.12" filter="blur(60px)" class="ambient-halo"/>
+  <circle cx="180" cy="180" r="120" fill="#06B6D4" opacity="0.1" filter="blur(50px)" class="ambient-halo"/>
+  <circle cx="780" cy="380" r="130" fill="#10B981" opacity="0.1" filter="blur(50px)" class="ambient-halo"/>
+
+  <!-- ==================== ANIMATED TREE CONNECTIONS ==================== -->
+  <g fill="none">
+    <!-- Root to Tier 1: Left Branch (Ingestion) -->
+    <path d="M 480 230 C 480 150, 240 160, 240 120" stroke="#06B6D4" stroke-width="2.5" class="tree-connector" opacity="0.85"/>
+    <!-- Root to Tier 1: Center-Left (Statistical Engine) -->
+    <path d="M 480 230 C 480 180, 400 160, 400 120" stroke="#8B5CF6" stroke-width="2.5" class="tree-connector" opacity="0.85"/>
+    <!-- Root to Tier 1: Center-Right (DAG Knowledge Graph) -->
+    <path d="M 480 230 C 480 180, 560 160, 560 120" stroke="#10B981" stroke-width="2.5" class="tree-connector" opacity="0.85"/>
+    <!-- Root to Tier 1: Right Branch (High-Concurrency Server) -->
+    <path d="M 480 230 C 480 150, 720 160, 720 120" stroke="#F59E0B" stroke-width="2.5" class="tree-connector" opacity="0.85"/>
+
+    <!-- Ingestion to Leaf Nodes -->
+    <path d="M 240 80 C 240 40, 140 50, 140 40" stroke="#06B6D4" stroke-width="1.8" class="tree-connector-fast" opacity="0.7"/>
+    <path d="M 240 80 C 240 40, 310 50, 310 40" stroke="#06B6D4" stroke-width="1.8" class="tree-connector-fast" opacity="0.7"/>
+
+    <!-- Statistical Engine to Leaves -->
+    <path d="M 400 80 C 400 50, 410 40, 410 35" stroke="#8B5CF6" stroke-width="1.8" class="tree-connector-fast" opacity="0.7"/>
+
+    <!-- DAG to Leaves -->
+    <path d="M 560 80 C 560 50, 550 40, 550 35" stroke="#10B981" stroke-width="1.8" class="tree-connector-fast" opacity="0.7"/>
+
+    <!-- Server to Leaves (Redis & PgBouncer) -->
+    <path d="M 720 80 C 720 40, 670 50, 670 40" stroke="#F59E0B" stroke-width="1.8" class="tree-connector-fast" opacity="0.7"/>
+    <path d="M 720 80 C 720 40, 830 50, 830 40" stroke="#F59E0B" stroke-width="1.8" class="tree-connector-fast" opacity="0.7"/>
+
+    <!-- Root downwards to Presentation Layer (Next.js 15) -->
+    <path d="M 480 310 C 480 370, 220 370, 220 430" stroke="#06B6D4" stroke-width="2.5" class="tree-connector" opacity="0.85"/>
+    <path d="M 480 310 C 480 380, 480 380, 480 430" stroke="#6366F1" stroke-width="2.5" class="tree-connector" opacity="0.85"/>
+    <path d="M 480 310 C 480 370, 740 370, 740 430" stroke="#10B981" stroke-width="2.5" class="tree-connector" opacity="0.85"/>
+
+    <!-- Presentation Layer to User Experience Outputs -->
+    <path d="M 220 480 L 220 515" stroke="#06B6D4" stroke-width="1.8" class="tree-connector-fast" opacity="0.7"/>
+    <path d="M 480 480 L 480 515" stroke="#6366F1" stroke-width="1.8" class="tree-connector-fast" opacity="0.7"/>
+    <path d="M 740 480 L 740 515" stroke="#10B981" stroke-width="1.8" class="tree-connector-fast" opacity="0.7"/>
+  </g>
+
+  <!-- ==================== TREE LEVEL: CENTRAL ROOT NODE ==================== -->
+  <g transform="translate(480, 270)" class="pulse-core">
+    <!-- Glowing Outer Aura -->
+    <rect x="-140" y="-40" width="280" height="80" rx="20" fill="rgba(99,102,241,0.2)" stroke="url(#grad-indigo)" stroke-width="2.5" filter="url(#glow-indigo)"/>
+    <!-- Glass Inner Body -->
+    <rect x="-138" y="-38" width="276" height="76" rx="18" fill="#0B1120" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+    
+    <!-- Status Dot -->
+    <circle cx="-110" cy="-5" r="5" fill="#10B981" filter="url(#glow-emerald)"/>
+    <text x="-95" y="-1" fill="#818CF8" font-size="10" font-weight="800" letter-spacing="1.5">CORE DISPATCHER</text>
+    <text x="-110" y="20" fill="#FFFFFF" font-size="16" font-weight="900" letter-spacing="-0.3">CareerGPS Neural Hub</text>
+  </g>
+
+  <!-- ==================== TREE LEVEL: UPPER BRANCHES ==================== -->
+
+  <!-- Branch 1: Ingestion & Normalization -->
+  <g transform="translate(240, 100)" class="node-pulse-cyan">
+    <rect x="-95" y="-22" width="190" height="44" rx="12" fill="#07192A" stroke="url(#grad-cyan)" stroke-width="2" filter="url(#glow-cyan)"/>
+    <text x="0" y="-2" fill="#38BDF8" font-size="9" font-weight="800" text-anchor="middle" letter-spacing="1">DATA PIPELINE</text>
+    <text x="0" y="14" fill="#F8FAFC" font-size="12" font-weight="700" text-anchor="middle">Ingestion &amp; Normalization</text>
+  </g>
+
+  <!-- Leaf 1.1: O*NET 28.0 -->
+  <g transform="translate(140, 25)">
+    <rect x="-60" y="-14" width="120" height="28" rx="8" fill="#06121E" stroke="#06B6D4" stroke-width="1.2"/>
+    <text x="0" y="4" fill="#7DD3FC" font-size="10" font-weight="600" text-anchor="middle">O*NET 28.0 Taxonomy</text>
+  </g>
+
+  <!-- Leaf 1.2: Adzuna Scraper -->
+  <g transform="translate(310, 25)">
+    <rect x="-65" y="-14" width="130" height="28" rx="8" fill="#06121E" stroke="#06B6D4" stroke-width="1.2"/>
+    <text x="0" y="4" fill="#7DD3FC" font-size="10" font-weight="600" text-anchor="middle">Adzuna 5-Nation Feed</text>
+  </g>
+
+  <!-- Branch 2: Statistical Compute Core -->
+  <g transform="translate(400, 100)" class="node-pulse-indigo">
+    <rect x="-70" y="-22" width="140" height="44" rx="12" fill="#15122B" stroke="url(#grad-indigo)" stroke-width="2" filter="url(#glow-indigo)"/>
+    <text x="0" y="-2" fill="#A78BFA" font-size="9" font-weight="800" text-anchor="middle" letter-spacing="1">ANALYTICS</text>
+    <text x="0" y="14" fill="#F8FAFC" font-size="12" font-weight="700" text-anchor="middle">Empirical Statistics</text>
+  </g>
+
+  <!-- Leaf 2.1: Bootstrap Resampling -->
+  <g transform="translate(410, 20)">
+    <rect x="-65" y="-14" width="130" height="28" rx="8" fill="#0D0B1C" stroke="#8B5CF6" stroke-width="1.2"/>
+    <text x="0" y="4" fill="#C4B5FD" font-size="10" font-weight="600" text-anchor="middle">Bootstrap CI (N=1000)</text>
+  </g>
+
+  <!-- Branch 3: DAG Knowledge Graph -->
+  <g transform="translate(560, 100)" class="node-pulse-emerald">
+    <rect x="-70" y="-22" width="140" height="44" rx="12" fill="#081E19" stroke="url(#grad-emerald)" stroke-width="2" filter="url(#glow-emerald)"/>
+    <text x="0" y="-2" fill="#34D399" font-size="9" font-weight="800" text-anchor="middle" letter-spacing="1">KNOWLEDGE GRAPH</text>
+    <text x="0" y="14" fill="#F8FAFC" font-size="12" font-weight="700" text-anchor="middle">Topological DAG</text>
+  </g>
+
+  <!-- Leaf 3.1: Kahn Topological Sort -->
+  <g transform="translate(550, 20)">
+    <rect x="-65" y="-14" width="130" height="28" rx="8" fill="#041310" stroke="#10B981" stroke-width="1.2"/>
+    <text x="0" y="4" fill="#6EE7B7" font-size="10" font-weight="600" text-anchor="middle">Kahn Algorithm Sort</text>
+  </g>
+
+  <!-- Branch 4: High-Concurrency Server Tier -->
+  <g transform="translate(720, 100)">
+    <rect x="-95" y="-22" width="190" height="44" rx="12" fill="#1C1408" stroke="url(#grad-amber)" stroke-width="2" filter="url(#glow-amber)"/>
+    <text x="0" y="-2" fill="#FBBF24" font-size="9" font-weight="800" text-anchor="middle" letter-spacing="1">SERVER CLUSTER</text>
+    <text x="0" y="14" fill="#F8FAFC" font-size="12" font-weight="700" text-anchor="middle">FastAPI (2C+1 Workers)</text>
+  </g>
+
+  <!-- Leaf 4.1: Redis Cache -->
+  <g transform="translate(670, 25)">
+    <rect x="-55" y="-14" width="110" height="28" rx="8" fill="#160E05" stroke="#F59E0B" stroke-width="1.2"/>
+    <text x="0" y="4" fill="#FDE68A" font-size="10" font-weight="600" text-anchor="middle">Redis LRU Cache</text>
+  </g>
+
+  <!-- Leaf 4.2: PgBouncer Pool -->
+  <g transform="translate(830, 25)">
+    <rect x="-65" y="-14" width="130" height="28" rx="8" fill="#160E05" stroke="#F59E0B" stroke-width="1.2"/>
+    <text x="0" y="4" fill="#FDE68A" font-size="10" font-weight="600" text-anchor="middle">PgBouncer (2k Conns)</text>
+  </g>
+
+  <!-- ==================== TREE LEVEL: PRESENTATION & CLIENT TIER ==================== -->
+
+  <!-- Client Node 1: Labor Explorer -->
+  <g transform="translate(220, 455)" class="node-pulse-cyan">
+    <rect x="-100" y="-25" width="200" height="50" rx="14" fill="#08182A" stroke="url(#grad-cyan)" stroke-width="2" filter="url(#glow-cyan)"/>
+    <text x="0" y="-4" fill="#38BDF8" font-size="9" font-weight="800" text-anchor="middle" letter-spacing="1">CLIENT TIER</text>
+    <text x="0" y="15" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">Labor Market Explorer</text>
+  </g>
+  <text x="220" y="530" fill="#94A3B8" font-size="11" font-weight="600" text-anchor="middle">Apache ECharts • Quartile Boxplots</text>
+
+  <!-- Client Node 2: Adaptive Planner -->
+  <g transform="translate(480, 455)" class="node-pulse-indigo">
+    <rect x="-105" y="-25" width="210" height="50" rx="14" fill="#13112E" stroke="url(#grad-indigo)" stroke-width="2" filter="url(#glow-indigo)"/>
+    <text x="0" y="-4" fill="#A78BFA" font-size="9" font-weight="800" text-anchor="middle" letter-spacing="1">NEXT.JS 15 CLIENT</text>
+    <text x="0" y="15" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">Adaptive Career Planner</text>
+  </g>
+  <text x="480" y="530" fill="#94A3B8" font-size="11" font-weight="600" text-anchor="middle">6-Step Wizard • PDF Curriculum Export</text>
+
+  <!-- Client Node 3: Learner Dashboard -->
+  <g transform="translate(740, 455)" class="node-pulse-emerald">
+    <rect x="-105" y="-25" width="210" height="50" rx="14" fill="#081C17" stroke="url(#grad-emerald)" stroke-width="2" filter="url(#glow-emerald)"/>
+    <text x="0" y="-4" fill="#34D399" font-size="9" font-weight="800" text-anchor="middle" letter-spacing="1">MEMBER PORTAL</text>
+    <text x="0" y="15" fill="#FFFFFF" font-size="13" font-weight="700" text-anchor="middle">Verified Learner Portal</text>
+  </g>
+  <text x="740" y="530" fill="#94A3B8" font-size="11" font-weight="600" text-anchor="middle">Checkable Milestones • 100% Offline Demo</text>
+
+  <!-- Top Title Banner -->
+  <text x="480" y="548" fill="rgba(255,255,255,0.25)" font-size="10" font-weight="700" text-anchor="middle" letter-spacing="2">
+    CAREERGPS ENTERPRISE SYSTEM TREE • HIGH-CONCURRENCY REACTIVE TOPOLOGY
+  </text>
+</svg>

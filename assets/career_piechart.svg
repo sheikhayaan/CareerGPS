@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <radialGradient id="pieBg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0E1628"/>
+      <stop offset="100%" stop-color="#060911"/>
+    </radialGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="pieGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <style>
+      text {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+      .slice-hover {
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+        transform-origin: 300px 240px;
+        cursor: pointer;
+      }
+      .slice-hover:hover {
+        opacity: 0.92;
+        transform: scale(1.03);
+      }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="480" rx="16" fill="url(#pieBg)" stroke="rgba(99,102,241,0.2)" stroke-width="1.5"/>
+
+  <!-- Title & Subtitle -->
+  <text x="50" y="45" fill="#FFFFFF" font-size="18" font-weight="900" letter-spacing="-0.02em">
+    Global Tech &amp; Tech-Adjacent Career Domain Distribution
+  </text>
+  <text x="50" y="68" fill="#94A3B8" font-size="12" font-weight="500">
+    Empirical Proportion of Active Postings across US, UK, Canada, Germany &amp; India (N = 1,388)
+  </text>
+
+  <!-- ==================== DONUT PIE SLICES (Center: cx=300, cy=240, R=150, r=85) ==================== -->
+  <!-- Angles:
+       1. Data Science: 28% -> 100.8 deg (0 to 100.8)
+       2. Software Eng: 25% -> 90 deg (100.8 to 190.8)
+       3. Machine Learning: 18% -> 64.8 deg (190.8 to 255.6)
+       4. Product Management: 12% -> 43.2 deg (255.6 to 298.8)
+       5. UI/UX Design: 7% -> 25.2 deg (298.8 to 324.0)
+       6. Business Analysis: 5% -> 18.0 deg (324.0 to 342.0)
+       7. Cybersecurity: 5% -> 18.0 deg (342.0 to 360.0)
+  -->
+
+  <g transform="translate(300, 250)">
+    <!-- 1. Data Science (28%, #6366F1) -->
+    <!-- Angle: -90 to 10.8 deg -->
+    <path d="M 0 -150 A 150 150 0 0 1 147.3 28.1 L 83.5 15.9 A 85 85 0 0 0 0 -85 Z" fill="#6366F1" filter="url(#pieGlow)" class="slice-hover"/>
+
+    <!-- 2. Software Eng (25%, #06B6D4) -->
+    <!-- Angle: 10.8 to 100.8 deg -->
+    <path d="M 147.3 28.1 A 150 150 0 0 1 -28.1 147.3 L -15.9 83.5 A 85 85 0 0 0 83.5 15.9 Z" fill="#06B6D4" filter="url(#pieGlow)" class="slice-hover"/>
+
+    <!-- 3. Machine Learning (18%, #10B981) -->
+    <!-- Angle: 100.8 to 165.6 deg -->
+    <path d="M -28.1 147.3 A 150 150 0 0 1 -145.3 -37.3 L -82.3 -21.1 A 85 85 0 0 0 -15.9 83.5 Z" fill="#10B981" filter="url(#pieGlow)" class="slice-hover"/>
+
+    <!-- 4. Product Management (12%, #F59E0B) -->
+    <!-- Angle: 165.6 to 208.8 deg -->
+    <path d="M -145.3 -37.3 A 150 150 0 0 1 -72.2 -131.4 L -40.9 -74.5 A 85 85 0 0 0 -82.3 -21.1 Z" fill="#F59E0B" filter="url(#pieGlow)" class="slice-hover"/>
+
+    <!-- 5. UI/UX Design (7%, #EC4899) -->
+    <!-- Angle: 208.8 to 234.0 deg -->
+    <path d="M -72.2 -131.4 A 150 150 0 0 1 -15.7 -149.2 L -8.9 -84.5 A 85 85 0 0 0 -40.9 -74.5 Z" fill="#EC4899" filter="url(#pieGlow)" class="slice-hover"/>
+
+    <!-- 6. Business Analysis (5%, #8B5CF6) -->
+    <!-- Angle: 234.0 to 252.0 deg -->
+    <path d="M -15.7 -149.2 A 150 150 0 0 1 0 -150 L 0 -85 A 85 85 0 0 0 -8.9 -84.5 Z" fill="#8B5CF6" filter="url(#pieGlow)" class="slice-hover"/>
+
+    <!-- Center Hole & Badge -->
+    <circle cx="0" cy="0" r="82" fill="#070C18" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="70" fill="#0C1322"/>
+    <text x="0" y="-8" fill="#818CF8" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="1">TOTAL DATASET</text>
+    <text x="0" y="16" fill="#FFFFFF" font-size="20" font-weight="900" text-anchor="middle">1,388</text>
+    <text x="0" y="32" fill="#64748B" font-size="10" font-weight="600" text-anchor="middle">Live Postings</text>
+  </g>
+
+  <!-- ==================== LEGEND & DETAILS CARDS (Right Side: x=540) ==================== -->
+  <g transform="translate(540, 105)">
+    <!-- 1. Data Science & Analytics -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="370" height="42" rx="10" fill="rgba(14,21,37,0.7)" stroke="rgba(99,102,241,0.3)" stroke-width="1"/>
+      <circle cx="20" cy="21" r="7" fill="#6366F1"/>
+      <text x="36" y="25" fill="#FFFFFF" font-size="13" font-weight="700">Data Science &amp; Advanced Analytics</text>
+      <text x="350" y="25" fill="#818CF8" font-size="14" font-weight="900" text-anchor="end">28.0%</text>
+    </g>
+
+    <!-- 2. Software & Systems Engineering -->
+    <g transform="translate(0, 48)">
+      <rect x="0" y="0" width="370" height="42" rx="10" fill="rgba(14,21,37,0.7)" stroke="rgba(6,182,212,0.3)" stroke-width="1"/>
+      <circle cx="20" cy="21" r="7" fill="#06B6D4"/>
+      <text x="36" y="25" fill="#FFFFFF" font-size="13" font-weight="700">Software &amp; Systems Engineering</text>
+      <text x="350" y="25" fill="#38BDF8" font-size="14" font-weight="900" text-anchor="end">25.0%</text>
+    </g>
+
+    <!-- 3. Machine Learning & MLOps -->
+    <g transform="translate(0, 96)">
+      <rect x="0" y="0" width="370" height="42" rx="10" fill="rgba(14,21,37,0.7)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
+      <circle cx="20" cy="21" r="7" fill="#10B981"/>
+      <text x="36" y="25" fill="#FFFFFF" font-size="13" font-weight="700">Machine Learning &amp; Production MLOps</text>
+      <text x="350" y="25" fill="#34D399" font-size="14" font-weight="900" text-anchor="end">18.0%</text>
+    </g>
+
+    <!-- 4. Product Management & Strategy -->
+    <g transform="translate(0, 144)">
+      <rect x="0" y="0" width="370" height="42" rx="10" fill="rgba(14,21,37,0.7)" stroke="rgba(245,158,11,0.3)" stroke-width="1"/>
+      <circle cx="20" cy="21" r="7" fill="#F59E0B"/>
+      <text x="36" y="25" fill="#FFFFFF" font-size="13" font-weight="700">Product Management &amp; Strategy</text>
+      <text x="350" y="25" fill="#FBBF24" font-size="14" font-weight="900" text-anchor="end">12.0%</text>
+    </g>
+
+    <!-- 5. UI/UX Design & Design Systems -->
+    <g transform="translate(0, 192)">
+      <rect x="0" y="0" width="370" height="42" rx="10" fill="rgba(14,21,37,0.7)" stroke="rgba(236,72,153,0.3)" stroke-width="1"/>
+      <circle cx="20" cy="21" r="7" fill="#EC4899"/>
+      <text x="36" y="25" fill="#FFFFFF" font-size="13" font-weight="700">UI/UX Design &amp; User Research</text>
+      <text x="350" y="25" fill="#F472B6" font-size="14" font-weight="900" text-anchor="end">7.0%</text>
+    </g>
+
+    <!-- 6. Business Analysis & Tech-Adjacent -->
+    <g transform="translate(0, 240)">
+      <rect x="0" y="0" width="370" height="42" rx="10" fill="rgba(14,21,37,0.7)" stroke="rgba(139,92,246,0.3)" stroke-width="1"/>
+      <circle cx="20" cy="21" r="7" fill="#8B5CF6"/>
+      <text x="36" y="25" fill="#FFFFFF" font-size="13" font-weight="700">Business Analysis &amp; Cybersecurity</text>
+      <text x="350" y="25" fill="#A78BFA" font-size="14" font-weight="900" text-anchor="end">10.0%</text>
+    </g>
+  </g>
+
+  <!-- Footer Indicator -->
+  <text x="480" y="465" fill="rgba(255,255,255,0.3)" font-size="10" font-weight="600" text-anchor="middle">
+    Cross-Validated Taxonomy Mapping: U.S. DOL O*NET 28.0 Standard Occupational Classification
+  </text>
+</svg>

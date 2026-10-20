@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="histBg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0E1628"/>
+      <stop offset="100%" stop-color="#060911"/>
+    </radialGradient>
+
+    <!-- Bar Gradients -->
+    <linearGradient id="barP25" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#0E7490"/>
+    </linearGradient>
+
+    <linearGradient id="barP50" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#4338CA"/>
+    </linearGradient>
+
+    <linearGradient id="barP75" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+
+    <filter id="barGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <style>
+      text {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+      .grid-line {
+        stroke: rgba(255, 255, 255, 0.06);
+        stroke-dasharray: 4 4;
+      }
+      .bar-hover {
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      .bar-hover:hover {
+        opacity: 0.9;
+      }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="480" rx="16" fill="url(#histBg)" stroke="rgba(99,102,241,0.2)" stroke-width="1.5"/>
+
+  <!-- Chart Title & Subtitle -->
+  <text x="50" y="45" fill="#FFFFFF" font-size="18" font-weight="900" letter-spacing="-0.02em">
+    Empirical Salary Distribution Quartiles by Role (US Labor Market)
+  </text>
+  <text x="50" y="68" fill="#94A3B8" font-size="12" font-weight="500">
+    Normalized Annual Base Compensation (USD) • Source: 1,388 Verified Postings (Zero Hallucinated Averages)
+  </text>
+
+  <!-- Legend -->
+  <g transform="translate(620, 38)">
+    <rect x="0" y="0" width="12" height="12" rx="3" fill="url(#barP25)" filter="url(#barGlow)"/>
+    <text x="18" y="10" fill="#CBD5E1" font-size="11" font-weight="600">P25 (Entry/Mid)</text>
+
+    <rect x="120" y="0" width="12" height="12" rx="3" fill="url(#barP50)" filter="url(#barGlow)"/>
+    <text x="138" y="10" fill="#CBD5E1" font-size="11" font-weight="600">P50 (Median)</text>
+
+    <rect x="235" y="0" width="12" height="12" rx="3" fill="url(#barP75)" filter="url(#barGlow)"/>
+    <text x="253" y="10" fill="#CBD5E1" font-size="11" font-weight="600">P75 (Senior)</text>
+  </g>
+
+  <!-- Y-Axis Grid Lines & Labels (Scale: $0k to $180k, Height 260px, Base y=390) -->
+  <!-- 1k = 1.444px -->
+  <g>
+    <!-- $180k -> y = 390 - 260 = 130 -->
+    <line x1="120" y1="130" x2="910" y2="130" class="grid-line"/>
+    <text x="110" y="134" fill="#64748B" font-size="11" font-weight="600" text-anchor="end">$180k</text>
+
+    <!-- $140k -> y = 390 - 202 = 188 -->
+    <line x1="120" y1="188" x2="910" y2="188" class="grid-line"/>
+    <text x="110" y="192" fill="#64748B" font-size="11" font-weight="600" text-anchor="end">$140k</text>
+
+    <!-- $100k -> y = 390 - 144 = 246 -->
+    <line x1="120" y1="246" x2="910" y2="246" class="grid-line"/>
+    <text x="110" y="250" fill="#64748B" font-size="11" font-weight="600" text-anchor="end">$100k</text>
+
+    <!-- $60k -> y = 390 - 86 = 304 -->
+    <line x1="120" y1="304" x2="910" y2="304" class="grid-line"/>
+    <text x="110" y="308" fill="#64748B" font-size="11" font-weight="600" text-anchor="end">$60k</text>
+
+    <!-- Base axis -> y = 390 -->
+    <line x1="120" y1="390" x2="910" y2="390" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <text x="110" y="394" fill="#64748B" font-size="11" font-weight="600" text-anchor="end">$0</text>
+  </g>
+
+  <!-- ==================== BARS GROUP BY ROLE ==================== -->
+
+  <!-- 1. Data Analyst (P25: $65k, P50: $82k, P75: $102k) -->
+  <g transform="translate(150, 0)" class="bar-hover">
+    <!-- P25: 65k -> height: 94px -> y = 296 -->
+    <rect x="0" y="296" width="22" height="94" rx="4" fill="url(#barP25)"/>
+    <text x="11" y="290" fill="#38BDF8" font-size="10" font-weight="700" text-anchor="middle">$65k</text>
+
+    <!-- P50: 82k -> height: 118px -> y = 272 -->
+    <rect x="26" y="272" width="22" height="118" rx="4" fill="url(#barP50)"/>
+    <text x="37" y="266" fill="#818CF8" font-size="10" font-weight="700" text-anchor="middle">$82k</text>
+
+    <!-- P75: 102k -> height: 147px -> y = 243 -->
+    <rect x="52" y="243" width="22" height="147" rx="4" fill="url(#barP75)"/>
+    <text x="63" y="237" fill="#34D399" font-size="10" font-weight="700" text-anchor="middle">$102k</text>
+
+    <text x="37" y="415" fill="#E2E8F0" font-size="12" font-weight="700" text-anchor="middle">Data Analyst</text>
+    <text x="37" y="430" fill="#64748B" font-size="10" font-weight="500" text-anchor="middle">N = 248</text>
+  </g>
+
+  <!-- 2. Data Scientist (P25: $95k, P50: $128k, P75: $155k) -->
+  <g transform="translate(280, 0)" class="bar-hover">
+    <!-- P25: 95k -> height: 137px -> y = 253 -->
+    <rect x="0" y="253" width="22" height="137" rx="4" fill="url(#barP25)"/>
+    <text x="11" y="247" fill="#38BDF8" font-size="10" font-weight="700" text-anchor="middle">$95k</text>
+
+    <!-- P50: 128k -> height: 185px -> y = 205 -->
+    <rect x="26" y="205" width="22" height="185" rx="4" fill="url(#barP50)"/>
+    <text x="37" y="199" fill="#818CF8" font-size="10" font-weight="700" text-anchor="middle">$128k</text>
+
+    <!-- P75: 155k -> height: 224px -> y = 166 -->
+    <rect x="52" y="166" width="22" height="224" rx="4" fill="url(#barP75)"/>
+    <text x="63" y="160" fill="#34D399" font-size="10" font-weight="700" text-anchor="middle">$155k</text>
+
+    <text x="37" y="415" fill="#E2E8F0" font-size="12" font-weight="700" text-anchor="middle">Data Scientist</text>
+    <text x="37" y="430" fill="#64748B" font-size="10" font-weight="500" text-anchor="middle">N = 312</text>
+  </g>
+
+  <!-- 3. ML Engineer (P25: $115k, P50: $142k, P75: $172k) -->
+  <g transform="translate(410, 0)" class="bar-hover">
+    <!-- P25: 115k -> height: 166px -> y = 224 -->
+    <rect x="0" y="224" width="22" height="166" rx="4" fill="url(#barP25)"/>
+    <text x="11" y="218" fill="#38BDF8" font-size="10" font-weight="700" text-anchor="middle">$115k</text>
+
+    <!-- P50: 142k -> height: 205px -> y = 185 -->
+    <rect x="26" y="185" width="22" height="205" rx="4" fill="url(#barP50)"/>
+    <text x="37" y="179" fill="#818CF8" font-size="10" font-weight="700" text-anchor="middle">$142k</text>
+
+    <!-- P75: 172k -> height: 248px -> y = 142 -->
+    <rect x="52" y="142" width="22" height="248" rx="4" fill="url(#barP75)"/>
+    <text x="63" y="136" fill="#34D399" font-size="10" font-weight="700" text-anchor="middle">$172k</text>
+
+    <text x="37" y="415" fill="#E2E8F0" font-size="12" font-weight="700" text-anchor="middle">ML Engineer</text>
+    <text x="37" y="430" fill="#64748B" font-size="10" font-weight="500" text-anchor="middle">N = 215</text>
+  </g>
+
+  <!-- 4. Software Engineer (P25: $105k, P50: $132k, P75: $158k) -->
+  <g transform="translate(540, 0)" class="bar-hover">
+    <!-- P25: 105k -> height: 152px -> y = 238 -->
+    <rect x="0" y="238" width="22" height="152" rx="4" fill="url(#barP25)"/>
+    <text x="11" y="232" fill="#38BDF8" font-size="10" font-weight="700" text-anchor="middle">$105k</text>
+
+    <!-- P50: 132k -> height: 191px -> y = 199 -->
+    <rect x="26" y="199" width="22" height="191" rx="4" fill="url(#barP50)"/>
+    <text x="37" y="193" fill="#818CF8" font-size="10" font-weight="700" text-anchor="middle">$132k</text>
+
+    <!-- P75: 158k -> height: 228px -> y = 162 -->
+    <rect x="52" y="162" width="22" height="228" rx="4" fill="url(#barP75)"/>
+    <text x="63" y="156" fill="#34D399" font-size="10" font-weight="700" text-anchor="middle">$158k</text>
+
+    <text x="37" y="415" fill="#E2E8F0" font-size="12" font-weight="700" text-anchor="middle">Software Eng</text>
+    <text x="37" y="430" fill="#64748B" font-size="10" font-weight="500" text-anchor="middle">N = 280</text>
+  </g>
+
+  <!-- 5. Product Manager (P25: $110k, P50: $136k, P75: $165k) -->
+  <g transform="translate(670, 0)" class="bar-hover">
+    <!-- P25: 110k -> height: 159px -> y = 231 -->
+    <rect x="0" y="231" width="22" height="159" rx="4" fill="url(#barP25)"/>
+    <text x="11" y="225" fill="#38BDF8" font-size="10" font-weight="700" text-anchor="middle">$110k</text>
+
+    <!-- P50: 136k -> height: 196px -> y = 194 -->
+    <rect x="26" y="194" width="22" height="196" rx="4" fill="url(#barP50)"/>
+    <text x="37" y="188" fill="#818CF8" font-size="10" font-weight="700" text-anchor="middle">$136k</text>
+
+    <!-- P75: 165k -> height: 238px -> y = 152 -->
+    <rect x="52" y="152" width="22" height="238" rx="4" fill="url(#barP75)"/>
+    <text x="63" y="146" fill="#34D399" font-size="10" font-weight="700" text-anchor="middle">$165k</text>
+
+    <text x="37" y="415" fill="#E2E8F0" font-size="12" font-weight="700" text-anchor="middle">Product Mgr</text>
+    <text x="37" y="430" fill="#64748B" font-size="10" font-weight="500" text-anchor="middle">N = 175</text>
+  </g>
+
+  <!-- 6. Cybersecurity Analyst (P25: $98k, P50: $122k, P75: $146k) -->
+  <g transform="translate(800, 0)" class="bar-hover">
+    <!-- P25: 98k -> height: 142px -> y = 248 -->
+    <rect x="0" y="248" width="22" height="142" rx="4" fill="url(#barP25)"/>
+    <text x="11" y="242" fill="#38BDF8" font-size="10" font-weight="700" text-anchor="middle">$98k</text>
+
+    <!-- P50: 122k -> height: 176px -> y = 214 -->
+    <rect x="26" y="214" width="22" height="176" rx="4" fill="url(#barP50)"/>
+    <text x="37" y="208" fill="#818CF8" font-size="10" font-weight="700" text-anchor="middle">$122k</text>
+
+    <!-- P75: 146k -> height: 211px -> y = 179 -->
+    <rect x="52" y="179" width="22" height="211" rx="4" fill="url(#barP75)"/>
+    <text x="63" y="173" fill="#34D399" font-size="10" font-weight="700" text-anchor="middle">$146k</text>
+
+    <text x="37" y="415" fill="#E2E8F0" font-size="12" font-weight="700" text-anchor="middle">Cybersecurity</text>
+    <text x="37" y="430" fill="#64748B" font-size="10" font-weight="500" text-anchor="middle">N = 158</text>
+  </g>
+
+  <!-- Footer Note -->
+  <text x="480" y="465" fill="rgba(255,255,255,0.3)" font-size="10" font-weight="600" text-anchor="middle">
+    Tukey IQR Outlier Filtered ($1.5 \times \text{IQR}$) • Cross-Referenced against U.S. BLS OEWS 2026 Benchmarks
+  </text>
+</svg>

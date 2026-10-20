@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <radialGradient id="dagBg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0E1628"/>
+      <stop offset="100%" stop-color="#05070D"/>
+    </radialGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="dagGlowCyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="dagGlowEmerald" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="dagGlowAmber" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <style>
+      text {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+      .dag-line {
+        stroke-dasharray: 6 4;
+        animation: dagFlow 2s linear infinite;
+      }
+      @keyframes dagFlow {
+        from { stroke-dashoffset: 20; }
+        to { stroke-dashoffset: 0; }
+      }
+    </style>
+  </defs>
+
+  <rect width="960" height="520" rx="16" fill="url(#dagBg)" stroke="rgba(99,102,241,0.2)" stroke-width="1.5"/>
+
+  <!-- Title & Subtitle -->
+  <text x="50" y="45" fill="#FFFFFF" font-size="18" font-weight="900" letter-spacing="-0.02em">
+    Skill Prerequisite Knowledge Graph (Directed Acyclic Graph DAG)
+  </text>
+  <text x="50" y="68" fill="#94A3B8" font-size="12" font-weight="500">
+    Topologically Ordered via Kahn's Algorithm • Guarantees Zero Hallucinated Curriculum Sequences
+  </text>
+
+  <!-- Level Column Headings -->
+  <g transform="translate(0, 100)">
+    <text x="110" y="0" fill="#38BDF8" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="1">LEVEL 0: FOUNDATIONS</text>
+    <text x="310" y="0" fill="#818CF8" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="1">LEVEL 1: TABULAR &amp; UI</text>
+    <text x="510" y="0" fill="#A78BFA" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="1">LEVEL 2: MODELING</text>
+    <text x="700" y="0" fill="#F472B6" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="1">LEVEL 3: PRODUCTION</text>
+    <text x="870" y="0" fill="#FBBF24" font-size="11" font-weight="800" text-anchor="middle" letter-spacing="1">CAPSTONES</text>
+  </g>
+
+  <!-- Background Column Stripes -->
+  <g opacity="0.03" fill="#FFFFFF">
+    <rect x="35" y="115" width="150" height="360" rx="8"/>
+    <rect x="235" y="115" width="150" height="360" rx="8"/>
+    <rect x="435" y="115" width="150" height="360" rx="8"/>
+    <rect x="625" y="115" width="150" height="360" rx="8"/>
+    <rect x="805" y="115" width="130" height="360" rx="8"/>
+  </g>
+
+  <!-- ==================== ANIMATED CONNECTORS ==================== -->
+  <g fill="none" opacity="0.85">
+    <!-- Math -> Scikit-Learn -->
+    <path d="M 175 160 C 205 160, 400 160, 445 160" stroke="#06B6D4" stroke-width="1.8" class="dag-line"/>
+    <!-- Python -> Pandas -->
+    <path d="M 175 220 C 205 220, 215 160, 245 160" stroke="#06B6D4" stroke-width="1.8" class="dag-line"/>
+    <!-- SQL -> Pandas -->
+    <path d="M 175 280 C 205 280, 215 180, 245 180" stroke="#06B6D4" stroke-width="1.8" class="dag-line"/>
+    <!-- Stats -> A/B Testing -->
+    <path d="M 175 340 C 205 340, 400 240, 445 240" stroke="#06B6D4" stroke-width="1.8" class="dag-line"/>
+    <!-- Research -> Figma -->
+    <path d="M 175 410 C 205 410, 215 380, 245 380" stroke="#10B981" stroke-width="1.8" class="dag-line"/>
+
+    <!-- Pandas -> Scikit-Learn -->
+    <path d="M 375 160 C 405 160, 415 170, 445 170" stroke="#818CF8" stroke-width="1.8" class="dag-line"/>
+    <!-- Pandas -> BI Viz -->
+    <path d="M 375 180 C 405 180, 415 320, 445 320" stroke="#818CF8" stroke-width="1.8" class="dag-line"/>
+
+    <!-- Scikit-Learn -> PyTorch -->
+    <path d="M 575 160 C 600 160, 605 160, 635 160" stroke="#A78BFA" stroke-width="1.8" class="dag-line"/>
+    <!-- Docker -> MLOps -->
+    <path d="M 575 240 C 600 240, 605 240, 635 240" stroke="#A78BFA" stroke-width="1.8" class="dag-line"/>
+
+    <!-- PyTorch -> Capstone ML -->
+    <path d="M 765 160 C 785 160, 790 190, 815 190" stroke="#F472B6" stroke-width="2" class="dag-line"/>
+    <!-- MLOps -> Capstone MLOps -->
+    <path d="M 765 240 C 785 240, 790 270, 815 270" stroke="#F472B6" stroke-width="2" class="dag-line"/>
+    <!-- Usability -> Capstone Product -->
+    <path d="M 575 410 C 650 410, 750 370, 815 370" stroke="#10B981" stroke-width="2" class="dag-line"/>
+  </g>
+
+  <!-- ==================== LEVEL 0 NODES ==================== -->
+  <g transform="translate(45, 140)">
+    <rect width="130" height="38" rx="8" fill="#08182B" stroke="#06B6D4" stroke-width="1.5"/>
+    <text x="65" y="23" fill="#E0F2FE" font-size="11" font-weight="700" text-anchor="middle">Linear Algebra</text>
+  </g>
+
+  <g transform="translate(45, 200)">
+    <rect width="130" height="38" rx="8" fill="#08182B" stroke="#06B6D4" stroke-width="1.5"/>
+    <text x="65" y="23" fill="#E0F2FE" font-size="11" font-weight="700" text-anchor="middle">Scientific Python</text>
+  </g>
+
+  <g transform="translate(45, 260)">
+    <rect width="130" height="38" rx="8" fill="#08182B" stroke="#06B6D4" stroke-width="1.5"/>
+    <text x="65" y="23" fill="#E0F2FE" font-size="11" font-weight="700" text-anchor="middle">Relational SQL</text>
+  </g>
+
+  <g transform="translate(45, 320)">
+    <rect width="130" height="38" rx="8" fill="#08182B" stroke="#06B6D4" stroke-width="1.5"/>
+    <text x="65" y="23" fill="#E0F2FE" font-size="11" font-weight="700" text-anchor="middle">Statistical Infer.</text>
+  </g>
+
+  <g transform="translate(45, 390)">
+    <rect width="130" height="38" rx="8" fill="#081E19" stroke="#10B981" stroke-width="1.5"/>
+    <text x="65" y="23" fill="#D1FAE5" font-size="11" font-weight="700" text-anchor="middle">User Research</text>
+  </g>
+
+  <!-- ==================== LEVEL 1 NODES ==================== -->
+  <g transform="translate(245, 140)">
+    <rect width="130" height="42" rx="8" fill="#131433" stroke="#6366F1" stroke-width="1.5"/>
+    <text x="65" y="19" fill="#EEF2FF" font-size="11" font-weight="700" text-anchor="middle">Pandas Pipelines</text>
+    <text x="65" y="33" fill="#818CF8" font-size="9" font-weight="600" text-anchor="middle">&amp; Data Wrangling</text>
+  </g>
+
+  <g transform="translate(245, 360)">
+    <rect width="130" height="42" rx="8" fill="#081E19" stroke="#10B981" stroke-width="1.5"/>
+    <text x="65" y="19" fill="#D1FAE5" font-size="11" font-weight="700" text-anchor="middle">Figma Systems</text>
+    <text x="65" y="33" fill="#34D399" font-size="9" font-weight="600" text-anchor="middle">&amp; Wireframing</text>
+  </g>
+
+  <!-- ==================== LEVEL 2 NODES ==================== -->
+  <g transform="translate(445, 140)">
+    <rect width="130" height="42" rx="8" fill="#1E1333" stroke="#8B5CF6" stroke-width="1.5"/>
+    <text x="65" y="19" fill="#F5F3FF" font-size="11" font-weight="700" text-anchor="middle">Scikit-Learn ML</text>
+    <text x="65" y="33" fill="#C4B5FD" font-size="9" font-weight="600" text-anchor="middle">Supervised Models</text>
+  </g>
+
+  <g transform="translate(445, 220)">
+    <rect width="130" height="38" rx="8" fill="#1E1333" stroke="#8B5CF6" stroke-width="1.5"/>
+    <text x="65" y="23" fill="#F5F3FF" font-size="11" font-weight="700" text-anchor="middle">Docker &amp; Containers</text>
+  </g>
+
+  <g transform="translate(445, 300)">
+    <rect width="130" height="38" rx="8" fill="#1E1333" stroke="#8B5CF6" stroke-width="1.5"/>
+    <text x="65" y="23" fill="#F5F3FF" font-size="11" font-weight="700" text-anchor="middle">A/B Power Testing</text>
+  </g>
+
+  <g transform="translate(445, 390)">
+    <rect width="130" height="38" rx="8" fill="#081E19" stroke="#10B981" stroke-width="1.5"/>
+    <text x="65" y="23" fill="#D1FAE5" font-size="11" font-weight="700" text-anchor="middle">Usability Labs</text>
+  </g>
+
+  <!-- ==================== LEVEL 3 NODES ==================== -->
+  <g transform="translate(635, 140)">
+    <rect width="130" height="42" rx="8" fill="#2E1026" stroke="#EC4899" stroke-width="1.5"/>
+    <text x="65" y="19" fill="#FDF2F8" font-size="11" font-weight="700" text-anchor="middle">PyTorch Neural</text>
+    <text x="65" y="33" fill="#F472B6" font-size="9" font-weight="600" text-anchor="middle">Deep Learning</text>
+  </g>
+
+  <g transform="translate(635, 220)">
+    <rect width="130" height="42" rx="8" fill="#2E1026" stroke="#EC4899" stroke-width="1.5"/>
+    <text x="65" y="19" fill="#FDF2F8" font-size="11" font-weight="700" text-anchor="middle">Production MLOps</text>
+    <text x="65" y="33" fill="#F472B6" font-size="9" font-weight="600" text-anchor="middle">Airflow &amp; Feat Store</text>
+  </g>
+
+  <!-- ==================== LEVEL 4: CAPSTONES ==================== -->
+  <g transform="translate(815, 170)" filter="url(#dagGlowAmber)">
+    <rect width="120" height="44" rx="10" fill="#261805" stroke="#F59E0B" stroke-width="2"/>
+    <text x="60" y="20" fill="#FEF3C7" font-size="11" font-weight="800" text-anchor="middle">⭐ Churn Engine</text>
+    <text x="60" y="34" fill="#FBBF24" font-size="9" font-weight="600" text-anchor="middle">Data Science Capstone</text>
+  </g>
+
+  <g transform="translate(815, 250)" filter="url(#dagGlowAmber)">
+    <rect width="120" height="44" rx="10" fill="#261805" stroke="#F59E0B" stroke-width="2"/>
+    <text x="60" y="20" fill="#FEF3C7" font-size="11" font-weight="800" text-anchor="middle">⭐ Triton Cluster</text>
+    <text x="60" y="34" fill="#FBBF24" font-size="9" font-weight="600" text-anchor="middle">MLOps Capstone</text>
+  </g>
+
+  <g transform="translate(815, 350)" filter="url(#dagGlowAmber)">
+    <rect width="120" height="44" rx="10" fill="#261805" stroke="#F59E0B" stroke-width="2"/>
+    <text x="60" y="20" fill="#FEF3C7" font-size="11" font-weight="800" text-anchor="middle">⭐ SaaS Product</text>
+    <text x="60" y="34" fill="#FBBF24" font-size="9" font-weight="600" text-anchor="middle">UX &amp; PM Capstone</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="480" y="505" fill="rgba(255,255,255,0.25)" font-size="10" font-weight="600" text-anchor="middle">
+    KAHN TOPOLOGICAL DEGREE RESOLUTION • NETWORKX DIRECTED ACYCLIC GRAPH
+  </text>
+</svg>

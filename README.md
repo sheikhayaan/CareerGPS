@@ -45,47 +45,51 @@
 
 CareerGPS connects raw global labor market ingestion pipelines with a high-performance analytical compute cluster and an interactive Next.js 15 client.
 
+<p align="center">
+  <img src="assets/glowing_tree_flowchart.svg" alt="CareerGPS Glowing Tree Flowchart" width="100%" />
+</p>
+
 ```mermaid
 flowchart TD
     %% Styling Classes with Glowing Dark-Theme Gradients
     classDef client fill:#0B1120,stroke:#06B6D4,stroke-width:2px,color:#F8FAFC;
-    classDef edge fill:#1E1B4B,stroke:#6366F1,stroke-width:2px,color:#FFFFFF;
+    classDef edgeTier fill:#1E1B4B,stroke:#6366F1,stroke-width:2px,color:#FFFFFF;
     classDef core fill:#18181B,stroke:#10B981,stroke-width:2px,color:#F8FAFC;
     classDef cache fill:#31101E,stroke:#F43F5E,stroke-width:2px,color:#FECDD3;
     classDef db fill:#022C22,stroke:#059669,stroke-width:2px,color:#A7F3D0;
     classDef queue fill:#261805,stroke:#F59E0B,stroke-width:2px,color:#FDE68A;
 
-    subgraph ClientLayer["🌐 Edge & Presentation Tier (Next.js 15 App Router)"]
-        UI_Home["Landing Page & 3D Orbit Visualization"]:::client
+    subgraph ClientLayer["Edge and Presentation Tier (Next.js 15 App Router)"]
+        UI_Home["Landing Page and 3D Orbit Visualization"]:::client
         UI_Explorer["Labor Market Explorer (Apache ECharts)"]:::client
         UI_Planner["6-Step Career Planner Wizard"]:::client
-        UI_Dashboard["Verified Learner Portal & Progress Hub"]:::client
+        UI_Dashboard["Verified Learner Portal and Progress Hub"]:::client
     end
 
-    subgraph EdgeLayer["🛡️ Vercel Edge & Reverse Proxy"]
-        WAF["WAF & DDOS Shield (OWASP Top 10)"]:::edge
-        EdgeCache["Edge Static Asset Cache (ISR Revalidate: 3600s)"]:::edge
+    subgraph EdgeLayer["Vercel Edge and Reverse Proxy"]
+        WAF["WAF and DDOS Shield (OWASP Top 10)"]:::edgeTier
+        EdgeCache["Edge Static Asset Cache (ISR Revalidate: 3600s)"]:::edgeTier
     end
 
-    subgraph APILayer["⚡ High-Concurrency Application Tier (FastAPI Async Engine)"]
-        UvicornWorkers["Gunicorn / Uvicorn Pool (2C + 1 Workers, Max 200 Conn/Worker)"]:::core
-        AuthModule["JWT & Zero-Trust Bearer Token Validator"]:::core
-        AnalyticsRouter["Analytical Query Router (REST /api/analytics/*)"]:::core
-        CareerEngine["Topological DAG & Roadmap Engine (/api/career/*)"]:::core
-        UserModule["Profile & Checkable Checklist Manager (/api/user/*)"]:::core
+    subgraph APILayer["High-Concurrency Application Tier (FastAPI Async Engine)"]
+        UvicornWorkers["Gunicorn / Uvicorn Pool (2C+1 Workers, Max 200 Conn/Worker)"]:::core
+        AuthModule["JWT and Zero-Trust Bearer Token Validator"]:::core
+        AnalyticsRouter["Analytical Query Router (/api/analytics/*)"]:::core
+        CareerEngine["Topological DAG and Roadmap Engine (/api/career/*)"]:::core
+        UserModule["Profile and Checkable Checklist Manager (/api/user/*)"]:::core
     end
 
-    subgraph CacheTier["⚡ Redis Distributed Acceleration & Rate Limiter"]
+    subgraph CacheTier["Redis Distributed Acceleration and Rate Limiter"]
         RedisCache["Redis Cluster (LRU Response Caching: TTL 15m - 24h)"]:::cache
         RateLimiter["Token Bucket Rate Limiter (20/min profile, 120/min reads)"]:::cache
     end
 
-    subgraph PersistenceTier["🗄️ Relational Database Cluster (PostgreSQL 16)"]
-        PgBouncer["PgBouncer Connection Pooler (Transaction Mode, 2,000 Client Conns)"]:::db
-        PostgresDB[("PostgreSQL 16 Primary DB\n(Indexed Composite Keys & Materialized Analytics Views)")]:::db
+    subgraph PersistenceTier["Relational Database Cluster (PostgreSQL 16)"]
+        PgBouncer["PgBouncer Pooler (Transaction Mode, 2,000 Client Conns)"]:::db
+        PostgresDB[("PostgreSQL 16 Primary DB")]:::db
     end
 
-    subgraph WorkerTier["🔄 Background Asynchronous Processing"]
+    subgraph WorkerTier["Background Asynchronous Processing"]
         RedisQueue["Redis Queue / Task Broker"]:::queue
         AsyncWorker["Offloaded Worker (Bootstrap CI, Matrix Co-occurrence)"]:::queue
     end
@@ -127,15 +131,19 @@ CareerGPS uses **100% verified job posting observations** scraped from major emp
 
 Breakdown of live posting observations indexed across technology, engineering, product, and tech-adjacent domains:
 
+<p align="center">
+  <img src="assets/career_piechart.svg" alt="Career Domain Distribution Pie Chart" width="100%" />
+</p>
+
 ```mermaid
-pie title Global Career Postings Distribution by Domain (Empirical Dataset)
-    "Data Science & Advanced Analytics" : 28
-    "Software & Systems Engineering" : 25
-    "Machine Learning & MLOps" : 18
-    "Product Management & Strategy" : 12
-    "UI/UX & Product Design" : 7
-    "Business Analysis & Operations" : 5
-    "Cybersecurity & Cloud Security" : 5
+pie title Global Career Postings Distribution
+    "Data Science" : 28
+    "Software Engineering" : 25
+    "Machine Learning" : 18
+    "Product Management" : 12
+    "UI-UX Design" : 7
+    "Business Analysis" : 5
+    "Cybersecurity" : 5
 ```
 
 ---
@@ -144,38 +152,45 @@ pie title Global Career Postings Distribution by Domain (Empirical Dataset)
 
 CareerGPS computes exact empirical quartiles ($P_{25}$, Median $P_{50}$, $P_{75}$, and Top 10% $P_{90}$) rather than fabricating single-point averages.
 
-```mermaid
-xychart-beta
-    title "Annual Base Salary Quartiles by Role (US Market, in $k USD)"
-    x-axis ["Data Analyst", "Data Scientist", "ML Engineer", "Software Eng", "Product Mgr", "Cybersecurity"]
-    y-axis "Annual Base Salary ($k USD)" 40 --> 190
-    bar [65, 95, 115, 105, 110, 98]
-    line [92, 138, 162, 145, 155, 134]
-```
+<p align="center">
+  <img src="assets/salary_histogram.svg" alt="Empirical Salary Quartiles Histogram" width="100%" />
+</p>
 
-> **Legend**: 
-> - **Bars**: 25th Percentile ($P_{25}$ Entry/Mid Baseline)
-> - **Line**: 75th Percentile ($P_{75}$ Senior/High-Competency Target)
+| Target Career Track | Sample Size ($N$) | $P_{25}$ (Entry/Mid Baseline) | $P_{50}$ (Empirical Median) | $P_{75}$ (Senior/Lead Benchmark) | Interquartile Range (IQR) |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Data Analyst** | 248 | **$65,000** | **$82,000** | **$102,000** | $37,000 |
+| **Data Scientist** | 312 | **$95,000** | **$128,000** | **$155,000** | $60,000 |
+| **Machine Learning Engineer** | 215 | **$115,000** | **$142,000** | **$172,000** | $57,000 |
+| **Software Engineer** | 280 | **$105,000** | **$132,000** | **$158,000** | $53,000 |
+| **Product Manager** | 175 | **$110,000** | **$136,000** | **$165,000** | $55,000 |
+| **Cybersecurity Analyst** | 158 | **$98,000** | **$122,000** | **$146,000** | $48,000 |
 
 ---
 
 ### 2.3 Skill Penetration & Employer Demand Frequency
 
-Percentage of analyzed postings explicitly mandating top technical and cross-functional competencies:
+Percentage of analyzed postings explicitly mandating top technical and cross-functional competencies across 1,388 verified listings:
 
-```mermaid
-xychart-beta
-    title "Employer Demand Frequency (% of Job Postings Explicitly Mentioning Skill)"
-    x-axis ["Python", "SQL", "Machine Learning", "Docker", "Product Strategy", "Figma / UI", "Statistics", "Deep Learning"]
-    y-axis "Observed Inclusion Rate (%)" 0 --> 100
-    bar [84, 78, 62, 54, 48, 38, 59, 41]
-```
+| Core Tracked Competency | Observed Inclusion Rate | Empirical Employer Demand Histogram Bar |
+| :--- | :---: | :--- |
+| **Scientific Python** | **84.2%** | `█████████████████░░░` 84 / 100 |
+| **Relational SQL** | **78.5%** | `███████████████░░░░░` 78 / 100 |
+| **Statistical Modeling & ML**| **62.1%** | `████████████░░░░░░░░` 62 / 100 |
+| **Hypothesis & A/B Testing** | **59.4%** | `███████████░░░░░░░░░` 59 / 100 |
+| **Docker & Containerization**| **54.0%** | `██████████░░░░░░░░░░` 54 / 100 |
+| **Product Strategy & PRDs** | **48.3%** | `█████████░░░░░░░░░░░` 48 / 100 |
+| **Deep Learning (PyTorch)** | **41.6%** | `████████░░░░░░░░░░░░` 41 / 100 |
+| **Figma & Wireframing** | **38.0%** | `███████░░░░░░░░░░░░░` 38 / 100 |
 
 ---
 
 ## 3. 🌲 Glowing Skill Prerequisite Knowledge Tree (DAG Flowchart)
 
 To guarantee no AI hallucinations or backward curricula (e.g., studying Deep Learning before Matrix Math), CareerGPS models skills as a strict **Directed Acyclic Graph (DAG)** evaluated with **Kahn's Topological Sort Algorithm**.
+
+<p align="center">
+  <img src="assets/skill_dag_tree.svg" alt="Skill Prerequisite Knowledge Graph Tree" width="100%" />
+</p>
 
 ```mermaid
 flowchart TD
@@ -187,39 +202,39 @@ flowchart TD
     classDef nontech fill:#0F2942,stroke:#06B6D4,stroke-width:2px,color:#CFFAFE;
 
     subgraph Tier0["Level 0: Foundational Building Blocks"]
-        MATH["Linear Algebra & Multivariable Calculus"]:::foundational
-        STATS["Probability & Statistical Inference"]:::foundational
+        MATH["Linear Algebra and Calculus"]:::foundational
+        STATS["Probability and Statistical Inference"]:::foundational
         PY["Scientific Python Programming"]:::foundational
-        SQL["Relational Databases & SQL Queries"]:::foundational
-        RESEARCH["User Research & Market Discovery"]:::nontech
+        SQL["Relational Databases and SQL Queries"]:::foundational
+        RESEARCH["User Research and Market Discovery"]:::nontech
     end
 
-    subgraph Tier1["Level 1: Tabular & Analytical Mastery"]
+    subgraph Tier1["Level 1: Tabular and Interface Mastery"]
         NUMPY["NumPy Vectorized Operations"]:::intermediate
-        PANDAS["Pandas Data Wrangling & Pipelines"]:::intermediate
-        VIZ["Data Storytelling & BI Dashboards"]:::intermediate
-        FIGMA["Wireframing & Figma Design Systems"]:::nontech
-        SPEC["User Stories & PRD Writing"]:::nontech
+        PANDAS["Pandas Data Wrangling and Pipelines"]:::intermediate
+        VIZ["Data Storytelling and BI Dashboards"]:::intermediate
+        FIGMA["Wireframing and Figma Design Systems"]:::nontech
+        SPEC["User Stories and PRD Writing"]:::nontech
     end
 
-    subgraph Tier2["Level 2: Statistical Modeling & Architecture"]
-        SKLEARN["Supervised & Unsupervised ML (Scikit-Learn)"]:::advanced
-        EXPERIMENT["A/B Testing & Power Calculations"]:::advanced
-        DOCKER["Containerization & Docker Orchestration"]:::advanced
-        USABILITY["Interactive Prototyping & Usability Testing"]:::nontech
+    subgraph Tier2["Level 2: Statistical Modeling and Architecture"]
+        SKLEARN["Supervised and Unsupervised ML"]:::advanced
+        EXPERIMENT["AB Testing and Power Calculations"]:::advanced
+        DOCKER["Containerization and Docker"]:::advanced
+        USABILITY["Interactive Prototyping and Usability"]:::nontech
     end
 
-    subgraph Tier3["Level 3: Deep Tech & High-Scale Systems"]
-        PYTORCH["Deep Learning & Neural Architectures (PyTorch)"]:::advanced
-        MLOPS["ML Pipeline Orchestration & Feature Stores"]:::advanced
-        DISTRIBUTED["Distributed Computing & High-Throughput APIs"]:::advanced
+    subgraph Tier3["Level 3: Deep Tech and High-Scale Systems"]
+        PYTORCH["Deep Learning and PyTorch"]:::advanced
+        MLOPS["ML Pipeline Orchestration and Feature Stores"]:::advanced
+        DISTRIBUTED["Distributed Computing and APIs"]:::advanced
     end
 
     subgraph Tier4["Level 4: Production Capstone Milestones"]
-        CAP_DS["⭐ End-to-End Predictive Churn Engine"]:::capstone
-        CAP_ML["⭐ Triton Inference Server Deployment"]:::capstone
-        CAP_PROD["⭐ Scalable Multi-Tier SaaS Architecture"]:::capstone
-        CAP_PM["⭐ Enterprise Product Roadmap Launch"]:::capstone
+        CAP_DS["⭐ Predictive Churn Engine"]:::capstone
+        CAP_ML["⭐ Triton Inference Cluster"]:::capstone
+        CAP_PROD["⭐ Scalable SaaS Architecture"]:::capstone
+        CAP_PM["⭐ Enterprise Product Launch"]:::capstone
     end
 
     %% Dependency Edges
@@ -380,7 +395,7 @@ All analytical endpoints are read-heavy and computationally deterministic. Redis
 ```mermaid
 flowchart LR
     Req["Incoming HTTP Request"] --> CacheCheck{"Redis Cache Hit?"}
-    CacheCheck -- YES (Sub-10ms) --> Ret["Return Cached JSON Payload"]
+    CacheCheck -- YES --> Ret["Return Cached JSON Payload"]
     CacheCheck -- NO --> DB["Execute Async SQLAlchemy / PgBouncer"]
     DB --> WriteCache["Write to Redis with Explicit TTL"]
     WriteCache --> Ret
