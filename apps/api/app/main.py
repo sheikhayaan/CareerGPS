@@ -9,6 +9,9 @@ if ROOT_DIR not in sys.path:
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.requests import Request
+from starlette.responses import Response
 from app.core.config import settings
 from app.db.session import engine, Base, SessionLocal
 from app.db.seed import seed_taxonomy_and_samples
@@ -25,6 +28,20 @@ app = FastAPI(
     description="CareerGPS Backend API — Real-World Labor Analytics & Roadmap Engine",
     openapi_url=f"{settings.API_V1_STR}/openapi.json"
 )
+
+# Production Security Headers Middleware
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        response: Response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-XSS-Protection"] = "1; mode=block"
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+        return response
+
+app.add_middleware(SecurityHeadersMiddleware)
 
 # Set CORS middleware
 app.add_middleware(

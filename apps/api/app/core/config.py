@@ -7,9 +7,19 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "CareerGPS API"
     VERSION: str = "0.1.0"
     API_V1_STR: str = "/api/v1"
+    ENVIRONMENT: str = "development"  # "development", "staging", "production"
     
     # Database config (Defaults to project careergps.db for rapid local verification)
     DATABASE_URL: str = "sqlite:///" + str(Path(__file__).resolve().parent.parent.parent / "careergps.db").replace("\\", "/")
+    
+    # High-concurrency connection pooling (Applied when connected to PostgreSQL / PgBouncer)
+    DATABASE_POOL_SIZE: int = 30
+    DATABASE_MAX_OVERFLOW: int = 20
+    DATABASE_POOL_TIMEOUT: int = 30
+    DATABASE_POOL_RECYCLE: int = 1800
+    
+    # Redis configuration for multi-tier response caching & rate limiting
+    REDIS_URL: str = "redis://localhost:6379/0"
     
     # CORS settings
     BACKEND_CORS_ORIGINS: List[str] = [

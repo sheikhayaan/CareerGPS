@@ -33,8 +33,10 @@ def get_current_user_optional(
     if not token:
         return None
 
-    # Seamless support for demo and development tokens
-    if (
+    is_dev = settings.ENVIRONMENT.lower() != "production"
+
+    # Support for demo and development tokens ONLY in non-production environments
+    if is_dev and (
         token.startswith("demo_")
         or token.startswith("mock_")
         or "demo" in token
@@ -49,9 +51,9 @@ def get_current_user_optional(
         )
 
     try:
-        # In production Supabase Auth: verify using SUPABASE_JWT_SECRET
-        # Also supports unverified decode in local sandbox mode if secret is default
-        options = {"verify_signature": False} if settings.SUPABASE_JWT_SECRET == "super-secret-supabase-jwt-token-key-for-local-development" else {"verify_signature": True}
+        # In production Supabase Auth: verify signature strictly using SUPABASE_JWT_SECRET
+        verify_sig = not is_dev if settings.SUPABASE_JWT_SECRET == "super-secret-supabase-jwt-token-key-for-local-development" else True
+        options = {"verify_signature": verify_sig}
         
         payload = jwt.decode(
             token,
@@ -73,9 +75,11 @@ def get_current_user_optional(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Authentication token has expired. Please log in again."
         )
+    except HTTPException:
+        raise
     except Exception as e:
-        # In development sandbox, fallback to demo user context
-        if settings.SUPABASE_JWT_SECRET == "super-secret-supabase-jwt-token-key-for-local-development":
+        # In non-production development sandbox, fallback to demo user context if default local secret
+        if is_dev and settings.SUPABASE_JWT_SECRET == "super-secret-supabase-jwt-token-key-for-local-development":
             return AuthenticatedUser(
                 user_id="usr_demo_student",
                 email="student@careergps.ai",

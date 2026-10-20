@@ -5,12 +5,14 @@ services:
     env: python
     region: oregon
     plan: free
-    buildCommand: "pip install -r apps/api/requirements.txt && pip install pyjwt cryptography posthog"
-    startCommand: "cd apps/api && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    buildCommand: "pip install -r apps/api/requirements.txt"
+    startCommand: "cd apps/api && uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 4"
     healthCheckPath: /health
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
+      - key: ENVIRONMENT
+        value: production
       - key: DATABASE_URL
         fromDatabase:
           name: careergps-postgres

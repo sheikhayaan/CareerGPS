@@ -38,7 +38,7 @@ export function trackEvent(
   }
 
   // 2. Also log to internal backend telemetry endpoint for reproducible DB analytics
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8005/api';
   try {
     fetch(`${API_BASE}/user/telemetry/event`, {
       method: 'POST',
