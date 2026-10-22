@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Compass, Mail, Lock, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
+import { Compass, Mail, Lock, ArrowRight, ShieldCheck, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { supabase } from '@/lib/supabase';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -13,11 +14,13 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [resetSent, setResetSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg('');
+    setResetSent(false);
     setLoading(true);
 
     const { error } = await loginWithEmail(email, password);
@@ -26,6 +29,30 @@ export default function LoginPage() {
       setLoading(false);
     } else {
       router.push('/dashboard');
+    }
+  };
+
+  const handleForgotPassword = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!email.trim()) {
+      setErrorMsg('Please enter your email address above to receive a password reset link.');
+      return;
+    }
+    setLoading(true);
+    setErrorMsg('');
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+        redirectTo: typeof window !== 'undefined' ? `${window.location.origin}/login` : undefined,
+      });
+      if (error) {
+        setErrorMsg(error.message);
+      } else {
+        setResetSent(true);
+      }
+    } catch (err: any) {
+      setResetSent(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,6 +84,13 @@ export default function LoginPage() {
           Sign in to access your saved career roadmaps and learning progress.
         </p>
 
+        {resetSent && (
+          <div className="mb-4 p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 text-xs flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <span>Password reset instructions have been dispatched to {email}.</span>
+          </div>
+        )}
+
         {errorMsg && (
           <div className="mb-4 p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-400 text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
@@ -83,7 +117,13 @@ export default function LoginPage() {
           <div>
             <div className="flex justify-between items-center mb-1.5">
               <label className="block text-xs font-semibold text-slate-300">Password</label>
-              <a href="#" className="text-xs text-primary-400 hover:text-primary-300">Forgot?</a>
+              <button
+                type="button"
+                onClick={handleForgotPassword}
+                className="text-xs text-primary-400 hover:text-primary-300 transition-colors cursor-pointer"
+              >
+                Forgot?
+              </button>
             </div>
             <div className="relative">
               <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />

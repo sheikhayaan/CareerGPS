@@ -68,10 +68,11 @@ export const CareerComparisonView: React.FC<ComparisonProps> = ({ roles = [], co
           <select
             value={countryCode}
             onChange={(e) => setCountryCode(e.target.value)}
-            className="bg-surface border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none"
+            className="bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-100 focus:outline-none focus:ring-1 focus:ring-primary"
+            style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}
           >
             {allCountries.map((c) => (
-              <option key={c.iso_code} value={c.iso_code}>
+              <option key={c.iso_code} value={c.iso_code} style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>
                 {c.name} ({c.currency_code || c.currency || 'USD'})
               </option>
             ))}
@@ -86,10 +87,13 @@ export const CareerComparisonView: React.FC<ComparisonProps> = ({ roles = [], co
           <select
             value={roleA}
             onChange={(e) => setRoleA(e.target.value)}
-            className="w-full bg-surface border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary"
+            style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}
           >
             {allRoles.map((r) => (
-              <option key={r.slug} value={r.slug}>{r.title}</option>
+              <option key={r.slug} value={r.slug} style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>
+                {r.title}
+              </option>
             ))}
           </select>
         </div>
@@ -99,10 +103,13 @@ export const CareerComparisonView: React.FC<ComparisonProps> = ({ roles = [], co
           <select
             value={roleB}
             onChange={(e) => setRoleB(e.target.value)}
-            className="w-full bg-surface border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:ring-2 focus:ring-accent"
+            className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 focus:outline-none focus:ring-2 focus:ring-accent"
+            style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}
           >
             {allRoles.map((r) => (
-              <option key={r.slug} value={r.slug}>{r.title}</option>
+              <option key={r.slug} value={r.slug} style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>
+                {r.title}
+              </option>
             ))}
           </select>
         </div>

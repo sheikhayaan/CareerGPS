@@ -29,6 +29,7 @@ build/
 out/
 build/
 dist/
+*.tsbuildinfo
 
 # Environment Variables & Secrets (CRITICAL SECURITY)
 .env

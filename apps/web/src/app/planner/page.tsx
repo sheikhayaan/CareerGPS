@@ -135,12 +135,31 @@ export default function PlannerPage() {
   const handleExportPDF = async () => {
     if (!reportRef.current) return;
     try {
-      const canvas = await html2canvas(reportRef.current, { scale: 2, backgroundColor: '#0B0F19' });
-      const imgData = canvas.toDataURL('image/png');
+      const canvas = await html2canvas(reportRef.current, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#0B0F19',
+        logging: false,
+      });
+      const imgWidth = 210; // A4 width in mm
+      const pageHeight = 297; // A4 height in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
       const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      let position = 0;
+
+      const imgData = canvas.toDataURL('image/png');
+
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
       pdf.save(`CareerGPS_${currentConfig?.targetRole || 'Roadmap'}.pdf`);
     } catch (err) {
       console.error('PDF export failed', err);

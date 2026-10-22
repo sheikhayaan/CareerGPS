@@ -72,10 +72,26 @@ export const CareerPlannerWizard: React.FC<WizardProps> = ({
 
   // Salary guideline based on selected country and role
   const getSalaryBenchmarkHint = () => {
-    if (targetCountry === 'US') return { median: '$75,000', p75: '$95,000', currency: 'USD ($)', min: 40000, max: 200000, step: 5000 };
-    if (targetCountry === 'GB') return { median: '£45,000', p75: '£60,000', currency: 'GBP (£)', min: 25000, max: 120000, step: 2500 };
-    if (targetCountry === 'CA') return { median: 'C$78,000', p75: 'C$98,000', currency: 'CAD (C$)', min: 45000, max: 180000, step: 5000 };
-    return { median: '₹8,50,000', p75: '₹14,00,000', currency: 'INR (₹)', min: 300000, max: 3500000, step: 50000 };
+    if (targetCountry === 'US') return { median: '$75,000', p75: '$95,000', defaultVal: 85000, currency: 'USD ($)', min: 40000, max: 200000, step: 5000 };
+    if (targetCountry === 'GB') return { median: '£45,000', p75: '£60,000', defaultVal: 50000, currency: 'GBP (£)', min: 25000, max: 120000, step: 2500 };
+    if (targetCountry === 'DE') return { median: '€60,000', p75: '€75,000', defaultVal: 65000, currency: 'EUR (€)', min: 30000, max: 150000, step: 5000 };
+    if (targetCountry === 'CA') return { median: 'C$78,000', p75: 'C$98,000', defaultVal: 85000, currency: 'CAD (C$)', min: 45000, max: 180000, step: 5000 };
+    return { median: '₹8,50,000', p75: '₹14,00,000', defaultVal: 950000, currency: 'INR (₹)', min: 300000, max: 3500000, step: 50000 };
+  };
+
+  const handleSelectCountry = (code: string) => {
+    setTargetCountry(code);
+    const hints: Record<string, { min: number; max: number; defaultVal: number }> = {
+      US: { min: 40000, max: 200000, defaultVal: 85000 },
+      GB: { min: 25000, max: 120000, defaultVal: 50000 },
+      DE: { min: 30000, max: 150000, defaultVal: 65000 },
+      CA: { min: 45000, max: 180000, defaultVal: 85000 },
+      IN: { min: 300000, max: 3500000, defaultVal: 950000 },
+    };
+    const h = hints[code] || hints.US;
+    if (targetSalary < h.min || targetSalary > h.max) {
+      setTargetSalary(h.defaultVal);
+    }
   };
 
   const salHint = getSalaryBenchmarkHint();
@@ -234,7 +250,7 @@ export const CareerPlannerWizard: React.FC<WizardProps> = ({
               return (
                 <div
                   key={c.iso_code}
-                  onClick={() => setTargetCountry(c.iso_code)}
+                  onClick={() => handleSelectCountry(c.iso_code)}
                   className={`p-5 rounded-2xl border cursor-pointer transition-all flex items-center justify-between ${
                     isSelected
                       ? 'border-emerald-500 bg-emerald-500/10 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-500'
@@ -316,7 +332,7 @@ export const CareerPlannerWizard: React.FC<WizardProps> = ({
                 Target Compensation ({salHint.currency})
               </span>
               <span className="text-2xl font-black font-mono" style={{ color: '#A5B4FC' }}>
-                {targetCountry === 'IN' ? `₹${targetSalary.toLocaleString()}` : targetCountry === 'GB' ? `£${targetSalary.toLocaleString()}` : `$${targetSalary.toLocaleString()}`}
+                {targetCountry === 'IN' ? `₹${targetSalary.toLocaleString('en-IN')}` : targetCountry === 'GB' ? `£${targetSalary.toLocaleString()}` : targetCountry === 'DE' ? `€${targetSalary.toLocaleString()}` : targetCountry === 'CA' ? `C$${targetSalary.toLocaleString()}` : `$${targetSalary.toLocaleString()}`}
               </span>
             </div>
 

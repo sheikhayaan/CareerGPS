@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { CareerComparisonView } from '@/components/career/CareerComparisonView';
@@ -100,15 +101,27 @@ function SalaryCard({ label, value, highlight, color }: {
   );
 }
 
-export default function ExploreCareersPage() {
+function ExploreCareersContent() {
+  const searchParams = useSearchParams();
+  const queryRole = searchParams.get('role');
+
   const [activeTab, setActiveTab] = useState<'market' | 'compare'>('market');
   const [roleFilter, setRoleFilter] = useState<'all' | 'Tech' | 'Non-Tech'>('all');
   const [overview, setOverview] = useState<any>(null);
   const [salaryDist, setSalaryDist] = useState<any>(null);
   const [skillDemand, setSkillDemand] = useState<any>(null);
-  const [selectedRole, setSelectedRole] = useState('data-analyst');
+  const [selectedRole, setSelectedRole] = useState(
+    queryRole && rolesList.some(r => r.slug === queryRole) ? queryRole : 'data-analyst'
+  );
   const [selectedCountry, setSelectedCountry] = useState('US');
   const [loadingAnalytics, setLoadingAnalytics] = useState(false);
+
+  useEffect(() => {
+    const roleParam = searchParams.get('role');
+    if (roleParam && rolesList.some(r => r.slug === roleParam)) {
+      setSelectedRole(roleParam);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     async function loadAnalytics() {
@@ -549,5 +562,20 @@ export default function ExploreCareersPage() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function ExploreCareersPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#060912', color: '#94A3B8' }}>
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
+          <span className="text-xs">Loading labor intelligence...</span>
+        </div>
+      </div>
+    }>
+      <ExploreCareersContent />
+    </Suspense>
   );
 }

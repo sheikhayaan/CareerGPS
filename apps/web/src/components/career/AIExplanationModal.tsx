@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Sparkles, Brain, BookOpen, Layers, CheckCircle2, X } from 'lucide-react';
+import { Sparkles, Brain, BookOpen, Layers, CheckCircle2, X, AlertTriangle } from 'lucide-react';
 import { Button, Card, Badge } from '@/components/ui';
 
 interface AIExplanationModalProps {
@@ -19,11 +19,13 @@ export const AIExplanationModal: React.FC<AIExplanationModalProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [explanation, setExplanation] = useState<any>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8005/api';
 
   const fetchExplanation = async () => {
     setLoading(true);
+    setErrorMsg(null);
     try {
       const res = await fetch(`${API_BASE}/career/ai/explain-skill`, {
         method: 'POST',
@@ -35,9 +37,13 @@ export const AIExplanationModal: React.FC<AIExplanationModalProps> = ({
       });
       if (res.ok) {
         setExplanation(await res.json());
+      } else {
+        const errJson = await res.json().catch(() => null);
+        const detail = errJson?.detail || `AI explanation service returned status HTTP ${res.status}.`;
+        setErrorMsg(detail);
       }
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      setErrorMsg(e?.message ? `Network request failed: ${e.message}` : 'Unable to connect to AI explanation endpoint.');
     } finally {
       setLoading(false);
     }
@@ -75,6 +81,20 @@ export const AIExplanationModal: React.FC<AIExplanationModalProps> = ({
           <div className="py-8 flex flex-col items-center justify-center gap-3">
             <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
             <span className="text-xs text-slate-400">Synthesizing pedagogical rationale...</span>
+          </div>
+        ) : errorMsg ? (
+          <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs space-y-3">
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+              <span className="font-semibold text-rose-200">Unable to Load Explanation</span>
+            </div>
+            <p className="leading-relaxed">{errorMsg}</p>
+            <button
+              onClick={fetchExplanation}
+              className="px-3.5 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
+            >
+              Retry Explanation
+            </button>
           </div>
         ) : explanation ? (
           <div className="space-y-4 text-xs">

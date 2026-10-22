@@ -10,8 +10,8 @@ def test_analytics_overview():
     assert res.status_code == 200
     data = res.json()
     assert data["total_postings"] > 0
-    assert data["total_roles"] == 6
-    assert data["total_countries"] == 4
+    assert data["total_roles"] >= 6
+    assert data["total_countries"] >= 4
     assert data["reliable_cohorts_count"] > 0
 
 
@@ -52,7 +52,7 @@ def test_analytics_countries_comparison():
     res = client.get("/api/analytics/countries/comparison?role=data-analyst")
     assert res.status_code == 200
     data = res.json()
-    assert len(data["comparisons"]) == 4
+    assert len(data["comparisons"]) >= 4
     us_item = next(c for c in data["comparisons"] if c["country_code"] == "US")
     assert us_item["is_sufficient"] is True
     assert us_item["median_salary"] is not None

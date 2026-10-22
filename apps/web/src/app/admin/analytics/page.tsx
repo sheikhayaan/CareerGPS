@@ -15,30 +15,42 @@ export default function AdminAnalyticsDashboard() {
 
   const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8005/api';
 
-  const fetchAnalytics = async () => {
+  const fetchAnalytics = async (keyToUse?: string) => {
+    const key = keyToUse !== undefined ? keyToUse : adminKey;
+    if (!key.trim()) {
+      setError('Please enter your X-Admin-Key above and click Refresh to view metrics.');
+      return;
+    }
     setLoading(true);
     setError('');
     try {
       const res = await fetch(`${API_BASE}/user/admin/product-analytics`, {
         headers: {
-          'X-Admin-Key': adminKey,
+          'X-Admin-Key': key.trim(),
         },
       });
       if (res.ok) {
         const json = await res.json();
         setData(json);
-      } else {
+        try { localStorage.setItem('careergps_admin_key', key.trim()); } catch (e) {}
+      } else if (res.status === 401 || res.status === 403) {
         setError('Authentication failed: Invalid X-Admin-Key provided.');
+      } else {
+        setError(`Analytics endpoint returned status HTTP ${res.status}.`);
       }
-    } catch (e) {
-      setError('Failed to reach backend analytics service.');
+    } catch (e: any) {
+      setError(e?.message ? `Network error: ${e.message}` : 'Failed to reach backend analytics service.');
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchAnalytics();
+    const stored = typeof window !== 'undefined' ? localStorage.getItem('careergps_admin_key') : null;
+    if (stored) {
+      setAdminKey(stored);
+      fetchAnalytics(stored);
+    }
   }, []);
 
   return (
@@ -61,14 +73,15 @@ export default function AdminAnalyticsDashboard() {
               type="password"
               value={adminKey}
               onChange={(e) => setAdminKey(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') fetchAnalytics(); }}
               placeholder="X-Admin-Key"
-              className="bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white focus:outline-none"
+              className="bg-slate-800 border border-slate-700 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
           <button
-            onClick={fetchAnalytics}
-            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors"
-            title="Refresh Analytics"
+            onClick={() => fetchAnalytics()}
+            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors cursor-pointer"
+            title="Authenticate & Refresh Analytics"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>

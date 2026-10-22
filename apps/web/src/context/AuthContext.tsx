@@ -61,13 +61,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     }
 
-    // Default to active demo session so learner dashboard is instantly accessible
-    setUser(DEMO_USER);
-    setToken(DEMO_TOKEN);
-    try {
-      localStorage.setItem('careergps_auth_token', DEMO_TOKEN);
-      localStorage.setItem('careergps_auth_user', JSON.stringify(DEMO_USER));
-    } catch (e) {}
+    // Unauthenticated visitor starts as an anonymous guest by default
+    setUser(null);
+    setToken(null);
+    setLoading(false);
 
     // 2. Listen to Supabase Auth state changes if configured
     try {

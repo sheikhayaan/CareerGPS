@@ -192,14 +192,20 @@ export default function ProfilePage() {
                 <select
                   value={targetCareer}
                   onChange={(e) => setTargetCareer(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}
                 >
-                  <option value="data-analyst">Data Analyst</option>
-                  <option value="data-scientist">Data Scientist</option>
-                  <option value="software-engineer">Software Engineer</option>
-                  <option value="machine-learning-engineer">Machine Learning Engineer</option>
-                  <option value="business-analyst">Business Analyst</option>
-                  <option value="cybersecurity-analyst">Cybersecurity Analyst</option>
+                  <option value="data-analyst" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Data Analyst</option>
+                  <option value="data-scientist" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Data Scientist</option>
+                  <option value="software-engineer" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Software Engineer</option>
+                  <option value="machine-learning-engineer" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Machine Learning Engineer</option>
+                  <option value="cybersecurity-analyst" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Cybersecurity Analyst</option>
+                  <option value="product-manager" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Product Manager</option>
+                  <option value="ui-ux-designer" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>UI/UX Designer</option>
+                  <option value="business-analyst" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Business Analyst</option>
+                  <option value="digital-marketing-specialist" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Digital Marketing Specialist</option>
+                  <option value="technical-writer" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Technical Writer</option>
+                  <option value="hr-talent-acquisition" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>HR & Talent Acquisition</option>
                 </select>
               </div>
 
@@ -208,12 +214,14 @@ export default function ProfilePage() {
                 <select
                   value={targetCountry}
                   onChange={(e) => setTargetCountry(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}
                 >
-                  <option value="US">United States (USD)</option>
-                  <option value="GB">United Kingdom (GBP)</option>
-                  <option value="DE">Germany (EUR)</option>
-                  <option value="IN">India (INR)</option>
+                  <option value="US" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>United States (USD)</option>
+                  <option value="GB" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>United Kingdom (GBP)</option>
+                  <option value="DE" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Germany (EUR)</option>
+                  <option value="IN" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>India (INR)</option>
+                  <option value="CA" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Canada (CAD)</option>
                 </select>
               </div>
 
@@ -223,7 +231,7 @@ export default function ProfilePage() {
                   type="number"
                   value={targetSalary}
                   onChange={(e) => setTargetSalary(Number(e.target.value))}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
 
@@ -232,12 +240,13 @@ export default function ProfilePage() {
                 <select
                   value={experienceLevel}
                   onChange={(e) => setExperienceLevel(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}
                 >
-                  <option value="Student">Student / Intern</option>
-                  <option value="Entry-level">Entry-level (0-2 yrs)</option>
-                  <option value="Mid-level">Mid-level (3-5 yrs)</option>
-                  <option value="Senior">Senior (5+ yrs)</option>
+                  <option value="Student" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Student / Intern</option>
+                  <option value="Entry-level" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Entry-level (0-2 yrs)</option>
+                  <option value="Mid-level" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Mid-level (3-5 yrs)</option>
+                  <option value="Senior" style={{ backgroundColor: '#0F172A', color: '#F8FAFC' }}>Senior (5+ yrs)</option>
                 </select>
               </div>
 
