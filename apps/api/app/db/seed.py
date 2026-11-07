@@ -313,8 +313,27 @@ def seed_taxonomy_and_samples(db: Session):
 
     db.commit()
 
-    # Ensure analytical views are automatically available on fresh PostgreSQL and SQLite databases
+    # Ensure schema migrations and analytical views are automatically available on PostgreSQL and SQLite databases
+    auto_migrate_schema(db)
     create_views_if_needed(db)
+
+
+def auto_migrate_schema(db: Session):
+    """Adds newly introduced columns to existing tables if absent."""
+    columns_to_add = [
+        ("user_role", "VARCHAR(32) DEFAULT 'candidate'"),
+        ("is_suspended", "BOOLEAN DEFAULT 0"),
+        ("total_sessions", "INTEGER DEFAULT 0"),
+        ("average_score", "NUMERIC(5, 2)"),
+        ("rating_score", "NUMERIC(3, 2)"),
+        ("rating_count", "INTEGER DEFAULT 0"),
+    ]
+    for col_name, col_type in columns_to_add:
+        try:
+            db.execute(text(f"ALTER TABLE user_profiles ADD COLUMN {col_name} {col_type};"))
+            db.commit()
+        except Exception:
+            db.rollback()
 
 
 def create_views_if_needed(db: Session):

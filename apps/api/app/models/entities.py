@@ -245,6 +245,12 @@ class UserProfile(Base):
     experience_level = Column(String(32), default="Entry-level")
     weekly_study_hours = Column(Integer, default=10)
     target_timeline_weeks = Column(Integer, default=12)
+    user_role = Column(String(32), default="candidate")
+    is_suspended = Column(Boolean, default=False)
+    total_sessions = Column(Integer, default=0)
+    average_score = Column(Numeric(5, 2), nullable=True)
+    rating_score = Column(Numeric(3, 2), nullable=True)
+    rating_count = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -361,4 +367,21 @@ class ProductAnalyticsEvent(Base):
     country_code = Column(String(8), nullable=True)
     properties_json = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow, index=True)
+
+
+class SystemIncident(Base):
+    """Enterprise APM Incident Record for autonomous self-healing and audit trails."""
+    __tablename__ = "system_incidents"
+
+    id = Column(String(64), primary_key=True)
+    timestamp = Column(DateTime, default=datetime.utcnow, index=True)
+    category = Column(String(64), nullable=False, index=True)
+    severity = Column(String(16), nullable=False, index=True)  # low, medium, high, critical
+    endpoint = Column(String(256), nullable=True)
+    status_code = Column(Integer, nullable=True)
+    error_details = Column(Text, nullable=True)
+    auto_mitigated = Column(Boolean, default=False, index=True)
+    mitigation_notes = Column(Text, nullable=True)
+    resolved_at = Column(DateTime, nullable=True)
+
 

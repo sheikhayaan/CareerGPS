@@ -85,6 +85,12 @@ export default function AdminAnalyticsDashboard() {
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
+          <Link
+            href="/admin"
+            className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600/80 hover:bg-indigo-600 text-white transition-colors"
+          >
+            APM Command Center
+          </Link>
         </div>
       </header>
 
